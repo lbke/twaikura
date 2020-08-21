@@ -6,6 +6,7 @@ import { withApollo } from "@vulcan/next-apollo";
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import { useMulti } from "@vulcan/react-hooks";
 import Tweek from "~/models/tweek";
+import { getDefaultFragmentText } from "@vulcan/graphql";
 
 const HomePage = () => {
   const vulcanSiteDataQuery = gql`
@@ -20,6 +21,7 @@ const HomePage = () => {
   `;
   const { data, loading, error } = useQuery(vulcanSiteDataQuery);
 
+  console.log(getDefaultFragmentText(Tweek));
   const {
     data: tweeksData,
     loading: loadingTweeks,
@@ -27,11 +29,8 @@ const HomePage = () => {
   } = useMulti({
     // TODO: data should become results
     model: Tweek,
-    fragment: `fragment TweekDefault on Tweek { 
-      _id 
-      text
-    }`,
-    fragmentName: "TweekDefault", // TODO
+    fragment: getDefaultFragmentText(Tweek),
+    fragmentName: "TweekDefaultFragment", // TODO
     //input: {},
   });
   console.log(tweeksData, loadingTweeks, errorTweeks);
