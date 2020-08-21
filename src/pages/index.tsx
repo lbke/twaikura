@@ -38,8 +38,8 @@ const HomePage = () => {
   return (
     <MDXMuiLayout>
       <main>
-        <Home />
-        {/*content*/}
+        {/*<Home />*/}
+        {content}
       </main>
       <style jsx>{`
         main {
