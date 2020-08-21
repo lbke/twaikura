@@ -1,3 +1,4 @@
+import { VulcanSchema } from "@vulcan/schema";
 export interface VulcanModel {
   options: {
     graphql: {
@@ -6,5 +7,5 @@ export interface VulcanModel {
       multiResolverName: string;
     };
   };
-  schema: any; // VulcanSchema
+  schema: VulcanSchema;
 }
