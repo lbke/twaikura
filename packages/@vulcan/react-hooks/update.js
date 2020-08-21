@@ -1,108 +1,108 @@
-/*
+// /*
 
-Generic mutation wrapper to update a document in a collection. 
+// Generic mutation wrapper to update a document in a collection.
 
-Sample mutation: 
+// Sample mutation:
 
-  mutation updateMovie($input: UpdateMovieInput) {
-    updateMovie(input: $input) {
-      data {
-        _id
-        name
-        __typename
-      }
-      __typename
-    }
-  }
+//   mutation updateMovie($input: UpdateMovieInput) {
+//     updateMovie(input: $input) {
+//       data {
+//         _id
+//         name
+//         __typename
+//       }
+//       __typename
+//     }
+//   }
 
-Arguments: 
+// Arguments:
 
-  - input
-    - input.selector: a selector to indicate the document to update
-    - input.data: the document (set a field to `null` to delete it)
+//   - input
+//     - input.selector: a selector to indicate the document to update
+//     - input.data: the document (set a field to `null` to delete it)
 
-Child Props:
+// Child Props:
 
-  - updateMovie({ selector, data })
-  
-*/
+//   - updateMovie({ selector, data })
 
-import React from "react";
-import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import {
-  updateClientTemplate,
-  extractCollectionInfo,
-  extractFragmentInfo,
-} from "meteor/vulcan:lib";
-import { computeQueryVariables } from "./variables";
+// */
 
-import { multiQueryUpdater } from "./create";
+// import React from "react";
+// import { useMutation } from "@apollo/react-hooks";
+// import gql from "graphql-tag";
+// import {
+//   updateClientTemplate,
+//   extractCollectionInfo,
+//   extractFragmentInfo,
+// } from "meteor/vulcan:lib";
+// import { computeQueryVariables } from "./variables";
 
-export const buildUpdateQuery = ({ typeName, fragmentName, fragment }) =>
-  gql`
-    ${updateClientTemplate({ typeName, fragmentName })}
-    ${fragment}
-  `;
+// import { multiQueryUpdater } from "./create";
 
-export const useUpdate = (options) => {
-  const { collectionName, collection } = extractCollectionInfo(options);
-  const { fragmentName, fragment } = extractFragmentInfo(
-    options,
-    collectionName
-  );
-  const { mutationOptions = {} } = options;
+// export const buildUpdateQuery = ({ typeName, fragmentName, fragment }) =>
+//   gql`
+//     ${updateClientTemplate({ typeName, fragmentName })}
+//     ${fragment}
+//   `;
 
-  const typeName = collection.options.typeName;
+// export const useUpdate = (options) => {
+//   const { collectionName, collection } = extractCollectionInfo(options);
+//   const { fragmentName, fragment } = extractFragmentInfo(
+//     options,
+//     collectionName
+//   );
+//   const { mutationOptions = {} } = options;
 
-  const query = buildUpdateQuery({ typeName, fragmentName, fragment });
+//   const typeName = collection.options.typeName;
 
-  const [updateFunc, ...rest] = useMutation(query, {
-    // see https://www.apollographql.com/docs/react/features/error-handling/#error-policies
-    errorPolicy: "all",
-    update: multiQueryUpdater({
-      typeName,
-      fragment,
-      fragmentName,
-      collection,
-      resolverName: `update${typeName}`,
-    }),
-    ...mutationOptions,
-  });
+//   const query = buildUpdateQuery({ typeName, fragmentName, fragment });
 
-  const extendedUpdateFunc = ({ data, ...args }) => {
-    return updateFunc({
-      variables: {
-        data,
-        ...computeQueryVariables(options, args),
-      },
-    });
-  };
-  return [extendedUpdateFunc, ...rest];
-};
+//   const [updateFunc, ...rest] = useMutation(query, {
+//     // see https://www.apollographql.com/docs/react/features/error-handling/#error-policies
+//     errorPolicy: "all",
+//     update: multiQueryUpdater({
+//       typeName,
+//       fragment,
+//       fragmentName,
+//       collection,
+//       resolverName: `update${typeName}`,
+//     }),
+//     ...mutationOptions,
+//   });
 
-export const withUpdate2 = (options) => (C) => {
-  const { collection } = extractCollectionInfo(options);
-  const typeName = collection.options.typeName;
-  const funcName = `update${typeName}`;
+//   const extendedUpdateFunc = ({ data, ...args }) => {
+//     return updateFunc({
+//       variables: {
+//         data,
+//         ...computeQueryVariables(options, args),
+//       },
+//     });
+//   };
+//   return [extendedUpdateFunc, ...rest];
+// };
 
-  const legacyError = () => {
-    throw new Error(
-      `editMutation function has been removed. Use ${funcName} function instead.`
-    );
-  };
-  const Wrapper = (props) => {
-    const [updateFunc] = useUpdate(options);
-    return (
-      <C
-        {...props}
-        {...{ [funcName]: updateFunc }}
-        editMutation={legacyError}
-      />
-    );
-  };
-  Wrapper.displayName = `withUpdate${typeName}`;
-  return Wrapper;
-};
+// export const withUpdate2 = (options) => (C) => {
+//   const { collection } = extractCollectionInfo(options);
+//   const typeName = collection.options.typeName;
+//   const funcName = `update${typeName}`;
 
-export default withUpdate2;
+//   const legacyError = () => {
+//     throw new Error(
+//       `editMutation function has been removed. Use ${funcName} function instead.`
+//     );
+//   };
+//   const Wrapper = (props) => {
+//     const [updateFunc] = useUpdate(options);
+//     return (
+//       <C
+//         {...props}
+//         {...{ [funcName]: updateFunc }}
+//         editMutation={legacyError}
+//       />
+//     );
+//   };
+//   Wrapper.displayName = `withUpdate${typeName}`;
+//   return Wrapper;
+// };
+
+// export default withUpdate2;

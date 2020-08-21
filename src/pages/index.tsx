@@ -20,13 +20,21 @@ const HomePage = () => {
   `;
   const { data, loading, error } = useQuery(vulcanSiteDataQuery);
 
-  const { results, loading: loadingTweeks, error: errorTweeks } = useMulti({
+  const {
+    data: tweeksData,
+    loading: loadingTweeks,
+    error: errorTweeks,
+  } = useMulti({
     // TODO: data should become results
     model: Tweek,
-    fragment: "XXXX", //TODO
-    fragmentName: "Tweek", // TODO
+    fragment: `fragment TweekDefault on Tweek { 
+      _id 
+      text
+    }`,
+    fragmentName: "TweekDefault", // TODO
     //input: {},
   });
+  console.log(tweeksData, loadingTweeks, errorTweeks);
 
   let content;
   if (loading) {
@@ -49,6 +57,14 @@ const HomePage = () => {
       <main>
         {/*<Home />*/}
         {content}
+        {errorTweeks && "Error while fetching tweeks"}
+        <ul>
+          {loadingTweeks && <li>Loading tweeks...</li>}
+          {tweeksData &&
+            tweeksData.tweeks.results.map((tweek) => (
+              <li key={tweek._id}>{tweek.text}</li>
+            ))}
+        </ul>
       </main>
       <style jsx>{`
         main {

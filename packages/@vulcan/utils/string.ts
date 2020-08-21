@@ -72,7 +72,7 @@ export const dashToCamel = function (str) {
  * @param {String} str
  */
 export const camelCaseify = function (str) {
-  str = this.dashToCamel(str.replace(" ", "-"));
+  str = dashToCamel(str.replace(" ", "-"));
   str = str.slice(0, 1).toLowerCase() + str.slice(1);
   return str;
 };
@@ -127,7 +127,7 @@ export const nl2br = function (str) {
 /////////////////////////////
 
 export const cleanUp = function (s) {
-  return this.stripHTML(s);
+  return stripHTML(s);
 };
 
 export const sanitize = function (s) {

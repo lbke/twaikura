@@ -54,11 +54,17 @@ const defaultInput = {
 
 export const buildMultiQuery = ({
   typeName,
+  multiTypeName,
   fragmentName,
   extraQueries,
   fragment,
 }) => gql`
-  ${multiClientTemplate({ typeName, fragmentName, extraQueries })}
+  ${multiClientTemplate({
+    typeName,
+    multiTypeName,
+    fragmentName,
+    extraQueries,
+  })}
   ${fragment}
 `;
 
@@ -225,7 +231,7 @@ const buildResult = (
 
 type UseMultiOptions = {
   model: VulcanModel;
-  fragment: any; // graphql fragment type? Either string or result of gql`...` ?
+  fragment: string;
   fragmentName: string;
   extraQueries?: any; // ??
 }; // & useQuery options?
@@ -245,12 +251,16 @@ export const useMulti = (options: UseMultiOptions, props = {}) => {
   //  collectionName
   //);
 
-  const typeName = model.options.graphql.typeName;
-  const resolverName = model.options.graphql.multiResolverName;
+  const {
+    typeName,
+    multiTypeName,
+    multiResolverName: resolverName,
+  } = model.options.graphql;
 
   // build graphql query from options
   const query = buildMultiQuery({
     typeName,
+    multiTypeName,
     fragmentName,
     extraQueries,
     fragment,

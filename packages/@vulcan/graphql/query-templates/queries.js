@@ -36,10 +36,16 @@ A query for multiple documents
 movies(input: MultiMovieInput) : MultiMovieOutput
 
 */
-// export const multiQueryType = (typeName) =>
-//   camelCaseify(pluralize(typeName));
+
+/**
+ * NOTE: we disallow automated pluralization
+ * Plural version must be defined by the user in order to avoid typos,
+ * special cases, i18n issues etc.
+ * @param {*} multiTypeName
+ */
+export const multiQueryType = (multiTypeName) => camelCaseify(multiTypeName);
 export const multiQueryTemplate = ({ typeName, multiTypeName }) =>
-  `${multiTypeName}(input: ${multiInputType(
+  `${multiQueryType(multiTypeName)}(input: ${multiInputType(
     typeName,
     false
   )}): ${multiOutputType(typeName)}`;
@@ -208,12 +214,17 @@ mutation multiMovieQuery($input: MultiMovieInput) {
 }
 
 */
-export const multiClientTemplate = ({ typeName, fragmentName, extraQueries }) =>
-  `query ${multiQueryType(typeName)}($input: ${multiInputType(
+export const multiClientTemplate = ({
+  typeName,
+  multiTypeName,
+  fragmentName,
+  extraQueries,
+}) =>
+  `query ${multiQueryType(multiTypeName)}($input: ${multiInputType(
     typeName,
     false
   )}) {
-  ${multiQueryType(typeName)}(input: $input) {
+  ${multiQueryType(multiTypeName)}(input: $input) {
     ${multiReturnProperty} {
       ...${fragmentName}
     }
