@@ -4,6 +4,8 @@ import Home from "~/components/home";
 //import { useForm } from "react-hook-form";
 import { withApollo } from "@vulcan/next-apollo";
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
+import { useMulti } from "@vulcan/react-hooks";
+import Tweek from "~/models/tweek";
 
 const HomePage = () => {
   const vulcanSiteDataQuery = gql`
@@ -16,8 +18,15 @@ const HomePage = () => {
       }
     }
   `;
-
   const { data, loading, error } = useQuery(vulcanSiteDataQuery);
+
+  const { results, loading: loadingTweeks, error: errorTweeks } = useMulti({
+    // TODO: data should become results
+    model: Tweek,
+    fragment: "XXXX", //TODO
+    fragmentName: "Tweek", // TODO
+    //input: {},
+  });
 
   let content;
   if (loading) {
