@@ -73,7 +73,7 @@ const HomePage = () => {
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
-            const text = evt.target["text"];
+            const text = evt.target["text"].value;
             console.log("text", text);
             // TODO: create tweek
             createTweek({ input: { data: { text } } });
