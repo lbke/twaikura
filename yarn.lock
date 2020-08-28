@@ -4130,11 +4130,6 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@types/simpl-schema@^0.2.8":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@types/simpl-schema/-/simpl-schema-0.2.8.tgz#9e690130bdb99ec050a158e2a4bf82fa4e1d2ea6"
-  integrity sha512-VqTRJet91DKnt6p/BUs5w0TAddLrLyEpSq1PmGyoui2RQVH4+yfMib6unWoEJ28JJ1Vr7Yj7GNLJX1BV/R8gMg==
-
 "@types/sinonjs__fake-timers@6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@types/sinonjs__fake-timers/-/sinonjs__fake-timers-6.0.1.tgz#681df970358c82836b42f989188d133e218c458e"
@@ -12068,6 +12063,11 @@ min-indent@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
+
+mingo@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/mingo/-/mingo-3.0.6.tgz#13c4d18a9ae8455d88d388f419df1be2dc71066c"
+  integrity sha512-5oB/ZaDB1Qh+qPxycYAFwhdCMOKFjXEiojEkRAObq1+M4/eKVSMZZt6aMeaWw0RS0MAM9HvCxSRt8f/wJ/5U3w==
 
 mini-css-extract-plugin@0.8.0:
   version "0.8.0"

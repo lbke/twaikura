@@ -26,7 +26,7 @@ const defaultOptions: Partial<VulcanWithApolloOptions> = {
   ssr: true,
 };
 const initApolloClient = (graphqlUri: string) => ({ initialState, ctx }) => {
-  return createApolloClient(graphqlUri, initialState, ctx);
+  return createApolloClient({ graphqlUri, initialState, ctx });
 };
 const renderWithApolloProvider = ({ Page, props }) => {
   return (
@@ -35,7 +35,10 @@ const renderWithApolloProvider = ({ Page, props }) => {
     </ApolloProvider>
   );
 };
-const vulcanWithApollo = (Page: NextPage, options: VulcanWithApolloOptions = {}) => {
+const vulcanWithApollo = (
+  Page: NextPage,
+  options: VulcanWithApolloOptions = {}
+) => {
   const mergedOptions = { ...defaultOptions, ...options };
   const {
     graphqlUri,

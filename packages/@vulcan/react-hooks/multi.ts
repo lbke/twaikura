@@ -34,12 +34,6 @@ Options:
 import { useQuery } from "@apollo/react-hooks";
 import { useState } from "react";
 import gql from "graphql-tag";
-// import {
-//   getSetting,
-//   multiClientTemplate,
-//   extractCollectionInfo,
-//   extractFragmentInfo,
-// } from 'meteor/vulcan:lib';
 import { multiClientTemplate } from "@vulcan/graphql";
 import { VulcanModel } from "@vulcan/model";
 import merge from "lodash/merge";
@@ -52,13 +46,20 @@ const defaultInput = {
   enableCache: false,
 };
 
+interface BuildMultiQueryArgs {
+  typeName: string;
+  multiTypeName: string;
+  fragmentName: string;
+  fragment: string;
+  extraQueries?: string;
+}
 export const buildMultiQuery = ({
   typeName,
   multiTypeName,
   fragmentName,
   extraQueries,
   fragment,
-}) => gql`
+}: BuildMultiQueryArgs) => gql`
   ${multiClientTemplate({
     typeName,
     multiTypeName,
@@ -233,7 +234,7 @@ type UseMultiOptions = {
   model: VulcanModel;
   fragment: string;
   fragmentName: string;
-  extraQueries?: any; // ??
+  extraQueries?: string; // Get more data alongside the objects
 }; // & useQuery options?
 type QueryResult = { graphQLErrors: any } & ReturnType<typeof useQuery>;
 
@@ -281,22 +282,3 @@ export const useMulti = (options: UseMultiOptions, props = {}) => {
 
   return result;
 };
-/*
-export const withMulti = (options) => (C) => {
-  const { collection } = extractCollectionInfo(options);
-  const typeName = collection.options.typeName;
-  const Wrapped = (props) => {
-    const res = useMulti(options, props);
-    return <C {...props} {...res} />;
-  };
-  Wrapped.displayName = `with${typeName}`;
-  return Wrapped;
-};
-*/
-/*
-export const useMulti2 = useMulti;
-*/
-// export const withMulti2 = withMulti;
-
-// legacy
-// export default withMulti;

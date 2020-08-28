@@ -1,10 +1,9 @@
 import { useQuery /*, useMutation*/ } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import Home from "~/components/home";
 //import { useForm } from "react-hook-form";
 import { withApollo } from "@vulcan/next-apollo";
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
-import { useMulti } from "@vulcan/react-hooks";
+import { useMulti, useCreate } from "@vulcan/react-hooks";
 import Tweek from "~/models/tweek";
 import { getDefaultFragmentText } from "@vulcan/graphql";
 
@@ -51,6 +50,12 @@ const HomePage = () => {
       4
     )}`;
   }
+
+  const [createTweek, { data: createdTweek }] = useCreate({
+    model: Tweek,
+    fragment: getDefaultFragmentText(Tweek),
+    fragmentName: "TweekDefaultFragment",
+  });
   return (
     <MDXMuiLayout>
       <main>
@@ -64,6 +69,19 @@ const HomePage = () => {
               <li key={tweek._id}>{tweek.text}</li>
             ))}
         </ul>
+        <h2>Create a new tweek</h2>
+        <form
+          onSubmit={(evt) => {
+            evt.preventDefault();
+            const text = evt.target["text"];
+            console.log("text", text);
+            // TODO: create tweek
+            createTweek({ input: { data: { text } } });
+          }}
+        >
+          <input type="text" name="text" />
+          <button type="submit">Submit</button>
+        </form>
       </main>
       <style jsx>{`
         main {
