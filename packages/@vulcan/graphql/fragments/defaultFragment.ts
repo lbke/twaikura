@@ -96,20 +96,28 @@ export const getFieldFragment = ({
   }
 };
 
+export const getDefaultFragmentName = (model: ModelSkeleton): string =>
+  `${model.graphql.typeName}DefaultFragment`;
 /*
 
 Create default "dumb" gql fragment object for a given collection
 
 */
+interface ModelSkeleton {
+  schema: VulcanModel["schema"];
+  graphql: Pick<VulcanModel["graphql"], "typeName">;
+}
 export const getDefaultFragmentText = (
-  model: VulcanModel,
+  model: ModelSkeleton, // only need a partially defined model
   options = { onlyViewable: true }
 ) => {
   const schema = model.schema;
   return (
     getObjectFragment({
       schema,
-      fragmentName: `fragment ${model.options.graphql.typeName}DefaultFragment on ${model.options.graphql.typeName}`,
+      fragmentName: `fragment ${getDefaultFragmentName(model)} on ${
+        model.graphql.typeName
+      }`,
       options,
     }) || null
   );

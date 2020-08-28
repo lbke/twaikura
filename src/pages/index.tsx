@@ -3,9 +3,8 @@ import gql from "graphql-tag";
 //import { useForm } from "react-hook-form";
 import { withApollo } from "@vulcan/next-apollo";
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
-import { useMulti, useCreate } from "@vulcan/react-hooks";
+import { useMulti, useCreate, useDelete } from "@vulcan/react-hooks";
 import Tweek from "~/models/tweek";
-import { getDefaultFragmentText } from "@vulcan/graphql";
 
 const HomePage = () => {
   const vulcanSiteDataQuery = gql`
@@ -25,11 +24,7 @@ const HomePage = () => {
     loading: loadingTweeks,
     error: errorTweeks,
   } = useMulti({
-    // TODO: data should become results
     model: Tweek,
-    fragment: getDefaultFragmentText(Tweek),
-    fragmentName: "TweekDefaultFragment", // TODO
-    //input: {},
   });
 
   let content;
@@ -51,9 +46,8 @@ const HomePage = () => {
 
   const [createTweek, { data: createdTweek }] = useCreate({
     model: Tweek,
-    fragment: getDefaultFragmentText(Tweek),
-    fragmentName: "TweekDefaultFragment",
   });
+  const [deleteTweek] = useDelete({ model: Tweek });
   return (
     <MDXMuiLayout>
       <main>
@@ -64,7 +58,14 @@ const HomePage = () => {
           {loadingTweeks && <li>Loading tweeks...</li>}
           {tweeksData &&
             tweeksData.tweeks.results.map((tweek) => (
-              <li key={tweek._id}>{tweek.text}</li>
+              <li key={tweek._id}>
+                {tweek.text}{" "}
+                <button
+                  onClick={() => deleteTweek({ input: { id: tweek._id } })}
+                >
+                  X
+                </button>
+              </li>
             ))}
         </ul>
         <h2>Create a new tweek</h2>

@@ -1,12 +1,7 @@
-import { VulcanModel } from "@vulcan/model";
-const Tweek: VulcanModel = {
-  options: {
-    graphql: {
-      typeName: "Tweek", // TODO: automatically create from a modelName property
-      multiTypeName: "Tweeks",
-      multiResolverName: "tweeks",
-    },
-  },
+import { createModel } from "@vulcan/model";
+const Tweek = createModel({
+  typeName: "Tweek", // TODO: automatically create from a modelName property
+  multiTypeName: "Tweeks",
   schema: {
     _id: {
       type: String,
@@ -57,5 +52,6 @@ const Tweek: VulcanModel = {
       },
     },
   },
-};
+});
+
 export default Tweek;

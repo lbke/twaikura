@@ -26,12 +26,56 @@
 
 // */
 
-import { useMutation, MutationHookOptions } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { createClientTemplate } from "@vulcan/graphql";
-import { VulcanModel } from "@vulcan/model";
-import { multiQueryUpdater } from "./multiQueryUpdater";
+import { multiQueryUpdater, ComputeNewDataFunc } from "./multiQueryUpdater";
 import { MutationResult } from "@apollo/react-common";
+import { VulcanMutationHookOptions } from "./typings";
+
+import { addToData, matchSelector } from "./cacheUpdate";
+import { filterFunction } from "@vulcan/mongo";
+
+import debug from "debug";
+const debugApollo = debug("vn:apollo");
+/**
+ * Compute the new list after a create mutation
+ * @param param0
+ */
+const computeNewDataAfterCreate: ComputeNewDataFunc = async ({
+  model,
+  variables,
+  queryResult,
+  mutatedDocument,
+  multiResolverName,
+}) => {
+  const newDoc = mutatedDocument;
+  // get mongo selector and options objects based on current terms
+  const multiInput = variables.input;
+  // TODO: the 3rd argument is the context, not available here
+  // Maybe we could pass the currentUser? The context is passed to custom filters function
+  const filter = await filterFunction(model, multiInput, {});
+  const { selector, options: paramOptions } = filter;
+  const { sort } = paramOptions;
+  debugApollo("Got query", queryResult, ", and filter", filter);
+  // check if the document should be included in this query, given the query filters
+  if (matchSelector(newDoc, selector)) {
+    debugApollo("Document matched, updating the data");
+    // TODO: handle order using the selector
+    const newData = addToData({
+      queryResult,
+      multiResolverName,
+      document: newDoc,
+      sort,
+      selector,
+    });
+    return newData;
+  }
+  return null;
+};
+const multiQueryUpdaterAfterCreate = multiQueryUpdater(
+  computeNewDataAfterCreate
+);
 
 export const buildCreateQuery = ({ typeName, fragmentName, fragment }) => {
   const query = gql`
@@ -53,13 +97,7 @@ const buildResult = (options, resolverName, executionResult) => {
 };
 
 // TODO: those typings are still very partial
-type UseCreateOptions = {
-  model: VulcanModel;
-  fragment: string;
-  fragmentName: string;
-  mutationOptions?: MutationHookOptions;
-  // extraQueries?: any;
-};
+interface UseCreateOptions extends VulcanMutationHookOptions {}
 interface CreateInput<T> {
   input: {
     data: T;
@@ -68,19 +106,24 @@ interface CreateInput<T> {
 type CreateFunc<T = any> = (args: CreateInput<T>) => void;
 type UseCreateResult<T = any> = [CreateFunc<T>, MutationResult<T>]; // return the usual useMutation result, but with an abstracted creation function
 export const useCreate = (options: UseCreateOptions): UseCreateResult => {
-  const { model, fragment, fragmentName, mutationOptions = {} } = options;
+  const {
+    model,
+    fragment = model.graphql.defaultFragment,
+    fragmentName = model.graphql.defaultFragmentName,
+    mutationOptions = {},
+  } = options;
 
-  const { typeName } = model.options.graphql;
+  const { typeName } = model.graphql;
 
   const query = buildCreateQuery({ typeName, fragmentName, fragment });
 
   const resolverName = `create${typeName}`;
 
   const [createFunc, ...rest] = useMutation(query, {
-    update: multiQueryUpdater({
+    update: multiQueryUpdaterAfterCreate({
+      model,
       fragment,
       fragmentName,
-      model,
       resolverName,
     }),
     ...mutationOptions,

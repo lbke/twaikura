@@ -232,8 +232,8 @@ const buildResult = (
 
 type UseMultiOptions = {
   model: VulcanModel;
-  fragment: string;
-  fragmentName: string;
+  fragment?: string;
+  fragmentName?: string;
   extraQueries?: string; // Get more data alongside the objects
 }; // & useQuery options?
 type QueryResult = { graphQLErrors: any } & ReturnType<typeof useQuery>;
@@ -244,7 +244,12 @@ export const useMulti = (options: UseMultiOptions, props = {}) => {
     initialPaginationInput
   );
 
-  let { model, fragment, fragmentName, extraQueries } = options;
+  let {
+    model,
+    fragment = model.graphql.defaultFragment,
+    fragmentName = model.graphql.defaultFragmentName,
+    extraQueries,
+  } = options;
 
   //const { collectionName, collection } = extractCollectionInfo(options);
   //const { fragmentName, fragment } = extractFragmentInfo(
@@ -256,7 +261,7 @@ export const useMulti = (options: UseMultiOptions, props = {}) => {
     typeName,
     multiTypeName,
     multiResolverName: resolverName,
-  } = model.options.graphql;
+  } = model.graphql;
 
   // build graphql query from options
   const query = buildMultiQuery({
