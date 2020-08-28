@@ -1,21 +1,19 @@
-
 /**
  *  Optimistic cache updates
  */
-import Mingo from 'mingo';
-
+import Mingo from "mingo";
 
 /**
  * Safe getter
  * Must returns null if the document is absent (eg in case of validation failure)
  * TODO: use this getter
- * @param {*} mutation 
- * @param {*} mutationName 
+ * @param {*} mutation
+ * @param {*} mutationName
  */
 const getDocumentFromMutation = (mutation, mutationName) => {
-    const mutationData = (mutation.result.data[mutationName] || {});
-    const document = mutationData.data;
-    return document;
+  const mutationData = mutation.result.data[mutationName] || {};
+  const document = mutationData.data;
+  return document;
 };
 
 // When using multi queries, we can't track all parameters, which are sadly needed
@@ -26,40 +24,39 @@ const getDocumentFromMutation = (mutation, mutationName) => {
 // @see https://github.com/apollographql/apollo-client/issues/3505
 // @see https://github.com/apollographql/apollo-client/issues/3505#issuecomment-535388194
 export const getVariablesListFromCache = (proxy, queryName) => {
-    //const queryName = query.definitions[0].name.value;
-    const rootQuery = proxy.data.data.ROOT_QUERY;
+  //const queryName = query.definitions[0].name.value;
+  const rootQuery = proxy.data.data.ROOT_QUERY;
 
-    // XXX: When using `optimisticResponse`, `proxy.data.data` resolves to
-    // another cache that doesn't contain the root query.
-    if (!rootQuery) return [];
+  // XXX: When using `optimisticResponse`, `proxy.data.data` resolves to
+  // another cache that doesn't contain the root query.
+  if (!rootQuery) return [];
 
-    // Customer(*) will be matched but no customer. This last one would cause an error in
-    // JSON.parse. If wanted to be treated, parseQueryNameToVariables should be adapted
-    const matchQueryReducer = (names, name) => {
-        if (name.startsWith(queryName + '(')) {
-            names.push(name);
-        }
-        return names;
-    };
+  // Customer(*) will be matched but no customer. This last one would cause an error in
+  // JSON.parse. If wanted to be treated, parseQueryNameToVariables should be adapted
+  const matchQueryReducer = (names, name) => {
+    if (name.startsWith(queryName + "(")) {
+      names.push(name);
+    }
+    return names;
+  };
 
-    const parseQueryNameToVariables = (name) =>
-        JSON.parse((name.match(/{.*}/))[0]);
+  const parseQueryNameToVariables = (name) => JSON.parse(name.match(/{.*}/)[0]);
 
-    return Object.keys(rootQuery)
-        .reduce(matchQueryReducer, [])
-        .map(parseQueryNameToVariables);
+  return Object.keys(rootQuery)
+    .reduce(matchQueryReducer, [])
+    .map(parseQueryNameToVariables);
 };
-
 
 /*
 
 Test if a document is already in a result set
 
 */
-export const isInData = ({ queryResult, multiResolverName, document }) => positionInSet(queryResult[multiResolverName].results, document) === -1;
+export const isInData = ({ queryResult, multiResolverName, document }) =>
+  positionInSet(queryResult[multiResolverName].results, document) === -1;
 
-export const positionInSet = (results, document) => results.findIndex(item => item._id && (item._id === document._id));
-
+export const positionInSet = (results, document) =>
+  results.findIndex((item) => item._id && item._id === document._id);
 
 /*
 
@@ -67,57 +64,66 @@ Reorder results according to a sort
 
 */
 export const reorderSet = (results, sort, selector) => {
-    const mingoQuery = new Mingo.Query(selector);
-    const cursor = mingoQuery.find(results);
-    const sortedResults = cursor.sort(sort).all();
-    return sortedResults;
+  const mingoQuery = new Mingo.Query(selector);
+  const cursor = mingoQuery.find(results);
+  const sortedResults = cursor.sort(sort).all();
+  return sortedResults;
 };
 
 /**
  * Add to data
- * @param {*} queryData 
- * @param {*} document 
+ * @param {*} queryData
+ * @param {*} document
  */
-export const addToData = ({ queryResult, multiResolverName, document, sort, selector }) => {
-    const queryData = queryResult[multiResolverName];
-    let { results, totalCount } = queryData;
-    const idx = positionInSet(results, document);
-    let newResults = [...results];
-    if (idx !== -1) {
-        // doc has already been added, eg after an optimistic response
-        // update it
-        newResults[idx] = document;
-    } else {
-        // add to list
-        newResults.unshift(document);
-        totalCount = totalCount + 1;
-    }
-    // sort if necessary
-    if (sort) {
-        newResults = reorderSet(newResults, sort, selector);
-    }
-    return {
-        ...queryResult,
-        [multiResolverName]: {
-            ...queryData,
-            // TODO: check order using mingo
-            results: newResults,
-            totalCount
-        }
-    };
+export const addToData = ({
+  queryResult,
+  multiResolverName,
+  document,
+  sort,
+  selector,
+}) => {
+  const queryData = queryResult[multiResolverName];
+  let { results, totalCount } = queryData;
+  const idx = positionInSet(results, document);
+  let newResults = [...results];
+  if (idx !== -1) {
+    // doc has already been added, eg after an optimistic response
+    // update it
+    newResults[idx] = document;
+  } else {
+    // add to list
+    newResults.unshift(document);
+    totalCount = totalCount + 1;
+  }
+  // sort if necessary
+  if (sort) {
+    newResults = reorderSet(newResults, sort, selector);
+  }
+  return {
+    ...queryResult,
+    [multiResolverName]: {
+      ...queryData,
+      // TODO: check order using mingo
+      results: newResults,
+      totalCount,
+    },
+  };
 };
 
-
-export const removeFromData = ({ queryResult, multiResolverName, document }) => {
-    const queryData = queryResult[multiResolverName];
-    return {
-        ...queryResult,
-        [multiResolverName]: {
-            ...queryData,
-            results: queryData.results.filter(item => item._id !== document._id),
-            totalCount: Math.max(0, queryData.totalCount - 1)
-        }
-    };
+export const removeFromData = ({
+  queryResult,
+  multiResolverName,
+  document,
+}) => {
+  const queryData = queryResult[multiResolverName];
+  return {
+    ...queryResult,
+    [multiResolverName]: {
+      ...queryData,
+      results: queryData.results.filter((item) => item._id !== document._id),
+      totalCount: Math.max(0, queryData.totalCount - 1),
+    },
+  };
 };
 
 /*
@@ -126,10 +132,9 @@ Test if a document is matched by a given selector
 
 */
 export const matchSelector = (document, selector) => {
-    const mingoQuery = new Mingo.Query(selector);
-    return mingoQuery.test(document);
+  const mingoQuery = new Mingo.Query(selector);
+  return mingoQuery.test(document);
 };
-
 
 /*
 

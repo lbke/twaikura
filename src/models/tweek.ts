@@ -4,7 +4,7 @@ const Tweek: VulcanModel = {
     graphql: {
       typeName: "Tweek", // TODO: automatically create from a modelName property
       multiTypeName: "Tweeks",
-      multiResolverName: "multi", // TODO: fix, and create a createModel function to facilitate this
+      multiResolverName: "tweeks",
     },
   },
   schema: {

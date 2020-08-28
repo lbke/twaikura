@@ -20,7 +20,6 @@ const HomePage = () => {
   `;
   const { data, loading, error } = useQuery(vulcanSiteDataQuery);
 
-  console.log(getDefaultFragmentText(Tweek));
   const {
     data: tweeksData,
     loading: loadingTweeks,
@@ -32,7 +31,6 @@ const HomePage = () => {
     fragmentName: "TweekDefaultFragment", // TODO
     //input: {},
   });
-  console.log(tweeksData, loadingTweeks, errorTweeks);
 
   let content;
   if (loading) {
@@ -74,7 +72,6 @@ const HomePage = () => {
           onSubmit={(evt) => {
             evt.preventDefault();
             const text = evt.target["text"].value;
-            console.log("text", text);
             // TODO: create tweek
             createTweek({ input: { data: { text } } });
           }}

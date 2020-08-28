@@ -9,6 +9,9 @@ import {
 } from "./cacheUpdate";
 import { filterFunction } from "@vulcan/mongo";
 import { getApolloClient } from "@vulcan/next-apollo";
+import debug from "debug";
+const debugApollo = debug("vn:apollo");
+
 export const multiQueryUpdater = ({
   fragment,
   fragmentName,
@@ -26,7 +29,13 @@ export const multiQueryUpdater = ({
   const newDoc = data[resolverName].data;
   // get all the resolvers that match
   const client = getApolloClient();
-  const variablesList = getVariablesListFromCache(cache, multiResolverName);
+  const variablesList = getVariablesListFromCache(cache, multiResolverName); // TODO: mutli resolverName is wrong
+  debugApollo(
+    "Got variable list from cache",
+    variablesList,
+    "for resolverName",
+    multiResolverName
+  );
   // compute all necessary updates
   const multiQueryUpdates = (
     await Promise.all(
@@ -40,8 +49,10 @@ export const multiQueryUpdater = ({
           const filter = await filterFunction(model, multiInput, {});
           const { selector, options: paramOptions } = filter;
           const { sort } = paramOptions;
+          debugApollo("Got query", queryResult, ", and filter", filter);
           // check if the document should be included in this query, given the query filters
           if (matchSelector(newDoc, selector)) {
+            debugApollo("Document matched, updating the data");
             // TODO: handle order using the selector
             const newData = addToData({
               queryResult,
@@ -63,6 +74,7 @@ export const multiQueryUpdater = ({
   ).filter((x) => !!x); // filter out null values
   // apply updates to the client
   multiQueryUpdates.forEach((update) => {
+    debugApollo("Updating cache with query", update);
     client.writeQuery(update);
   });
   // return for potential chainging
