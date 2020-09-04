@@ -75,7 +75,7 @@ const signupMutation = gql`
   }
 `;
 export const useSignup: PrebuiltMutation<
-  SignupOutput,
+  { signup: SignupOutput },
   ApolloVariables<SignupInput>
 > = (
   options //enhanceUseMutationResult(
@@ -99,7 +99,7 @@ const authenticateWithPasswordMutation = gql`
   }
 `;
 export const useAuthenticateWithPassword: PrebuiltMutation<
-  AuthWithPasswordOutput,
+  { authenticateWithPassword: AuthWithPasswordOutput },
   ApolloVariables<AuthWithPasswordInput>
 > = (options) =>
   enhanceUseMutationResult(
@@ -118,7 +118,7 @@ const logoutMutation = gql`
   }
 `;
 export const useLogout: PrebuiltMutation<
-  LogoutOutput,
+  { logout: LogoutOutput },
   ApolloVariables<LogoutInput>
 > = (options) => enhanceUseMutationResult(useMutation(logoutMutation, options));
 // export const useSetPassword = () => {

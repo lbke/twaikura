@@ -27,11 +27,14 @@ const AuthPage = () => {
         </form>
         <h2>Login</h2>
         <form
-          onSubmit={(evt) => {
+          onSubmit={async (evt) => {
             evt.preventDefault();
             const email = evt.target["email"].value;
             const password = evt.target["password"].value;
-            login({ input: { email, password } });
+            const { data } = await login({ input: { email, password } });
+            const { authenticateWithPassword } = data;
+            const { token } = authenticateWithPassword;
+            window.localStorage.setItem("meteor_login_token", token);
           }}
         >
           <label htmlFor="email">Email</label>
@@ -42,8 +45,9 @@ const AuthPage = () => {
         </form>
         <h2>Logout</h2>
         <button
-          onClick={() => {
-            logout();
+          onClick={async () => {
+            await logout();
+            window.localStorage.removeItem("meteor_login_token");
           }}
         >
           Logout
