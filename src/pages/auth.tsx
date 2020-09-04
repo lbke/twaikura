@@ -34,7 +34,7 @@ const AuthPage = () => {
             const { data } = await login({ input: { email, password } });
             const { authenticateWithPassword } = data;
             const { token } = authenticateWithPassword;
-            window.localStorage.setItem("meteor_login_token", token);
+            //window.localStorage.setItem("meteor_login_token", token);
           }}
         >
           <label htmlFor="email">Email</label>
