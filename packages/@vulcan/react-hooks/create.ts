@@ -42,7 +42,7 @@ const debugApollo = debug("vn:apollo");
  * Compute the new list after a create mutation
  * @param param0
  */
-const computeNewDataAfterCreate: ComputeNewDataFunc = async ({
+export const computeNewDataAfterCreate: ComputeNewDataFunc = async ({
   model,
   variables,
   queryResult,
@@ -96,14 +96,14 @@ const buildResult = (options, resolverName, executionResult) => {
   return props;
 };
 
-// TODO: those typings are still very partial
 interface UseCreateOptions extends VulcanMutationHookOptions {}
-interface CreateInput<T> {
-  input: {
-    data: T;
-  };
+interface CreateInput<TData = any> {
+  data: TData;
 }
-type CreateFunc<T = any> = (args: CreateInput<T>) => void;
+interface CreateVariables<TData = any> {
+  input: CreateInput<TData>;
+}
+type CreateFunc<T = any> = (args: CreateVariables<T>) => void;
 type UseCreateResult<T = any> = [CreateFunc<T>, MutationResult<T>]; // return the usual useMutation result, but with an abstracted creation function
 export const useCreate = (options: UseCreateOptions): UseCreateResult => {
   const {
@@ -129,9 +129,9 @@ export const useCreate = (options: UseCreateOptions): UseCreateResult => {
     ...mutationOptions,
   });
 
-  const extendedCreateFunc = async (args) => {
+  const extendedCreateFunc = async (args: CreateVariables) => {
     const executionResult = await createFunc({
-      variables: { input: args.input, data: args.data },
+      variables: { input: args.input },
     });
     return buildResult(options, resolverName, executionResult);
   };

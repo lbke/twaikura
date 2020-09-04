@@ -9,6 +9,8 @@ import {
 } from "@apollo/react-common";
 import { MutationTuple, MutationHookOptions } from "@apollo/react-hooks";
 
+import { ApolloVariables } from "@vulcan/graphql";
+
 // We modify the result function so that variables can be provided as first param,
 // which is more intuitive
 // Normal mutation function type (sadly not exported directly by Apollo)
@@ -41,11 +43,6 @@ type PrebuiltMutation<TData = any, TVariables = OperationVariables> = (
   options?: MutationHookOptions<TData, TVariables>
 ) => EnhancedMutationTuple<TData, TVariables>;
 // MutationTuple<TData, TVariables>;
-
-// Wrap input type, so the input is in the "input" field as an object
-interface ApolloVariables<TInput> {
-  input: TInput;
-}
 
 const acceptVariablesAsFirstArg = (
   mutationFunction: MutationFunction
