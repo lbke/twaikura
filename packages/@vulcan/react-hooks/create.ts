@@ -96,13 +96,13 @@ const buildResult = (options, resolverName, executionResult) => {
   return props;
 };
 
-interface UseCreateOptions extends VulcanMutationHookOptions {}
 interface CreateInput<TData = any> {
   data: TData;
 }
 interface CreateVariables<TData = any> {
   input: CreateInput<TData>;
 }
+interface UseCreateOptions extends VulcanMutationHookOptions {}
 type CreateFunc<T = any> = (args: CreateVariables<T>) => void;
 type UseCreateResult<T = any> = [CreateFunc<T>, MutationResult<T>]; // return the usual useMutation result, but with an abstracted creation function
 export const useCreate = (options: UseCreateOptions): UseCreateResult => {

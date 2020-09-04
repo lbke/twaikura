@@ -65,11 +65,16 @@ const multiQueryUpdaterAfterDelete = multiQueryUpdater(
   computeNewDataAfterDelete
 );
 
-interface UseDeleteOptions extends VulcanMutationHookOptions {}
 interface DeleteInput {
-  input: { id: string };
+  id: string;
 }
-type DeleteFunc = (args: DeleteInput) => void;
+interface DeleteVariables {
+  input: DeleteInput;
+}
+interface UseDeleteOptions
+  extends VulcanMutationHookOptions,
+    Partial<DeleteVariables> {}
+type DeleteFunc = (args: DeleteVariables) => void;
 type UseDeleteResult<T = any> = [DeleteFunc, MutationResult<T>];
 export const useDelete = (options: UseDeleteOptions): UseDeleteResult => {
   const {
@@ -99,7 +104,9 @@ export const useDelete = (options: UseDeleteOptions): UseDeleteResult => {
     }),
     ...mutationOptions,
   });
-  const extendedDeleteFunc = (args /*{ input: argsInput, _id: argsId }*/) => {
+  const extendedDeleteFunc = (
+    args: DeleteVariables /*{ input: argsInput, _id: argsId }*/
+  ) => {
     return deleteFunc({
       variables: {
         ...computeQueryVariables(options, args),

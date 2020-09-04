@@ -70,7 +70,7 @@ interface UpdateVariables<TData = any> {
 // Options of the hook
 interface UseUpdateOptions<TData = any>
   extends VulcanMutationHookOptions,
-    UpdateVariables<TData> {}
+    Partial<UpdateVariables<TData>> {}
 // Function returned by the hook
 type UpdateFunc<T = any> = (args: UpdateVariables<T>) => void;
 // Result of the hook
