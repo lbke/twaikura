@@ -1,4 +1,4 @@
-// export { useSingle } from "./single";
+export { useSingle } from "./single";
 export { useMulti } from "./multi";
 export { useCreate } from "./create";
 export { useDelete } from "./delete";
