@@ -28,26 +28,18 @@
 // */
 
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import { updateClientTemplate } from "@vulcan/graphql";
-import { multiQueryUpdater, ComputeNewDataFunc } from "./multiQueryUpdater";
-
 import { MutationResult } from "@apollo/react-common";
-import { VulcanMutationHookOptions } from "./typings";
+import gql from "graphql-tag";
 
+import { updateClientTemplate } from "@vulcan/graphql";
+
+import { multiQueryUpdater, ComputeNewDataFunc } from "./multiQueryUpdater";
 import { computeQueryVariables } from "./variables";
 import { computeNewDataAfterCreate } from "./create";
+import { VulcanMutationHookOptions } from "./typings";
 
 // We can reuse the same function to compute the new list after an element update
-const computeNewDataAfterUpdate: ComputeNewDataFunc = computeNewDataAfterCreate; /* = async ({
-  model,
-  variables,
-  queryResult,
-  mutatedDocument,
-  multiResolverName,
-}) => {
-  return null;
-};*/
+const computeNewDataAfterUpdate: ComputeNewDataFunc = computeNewDataAfterCreate;
 
 const multiQueryUpdaterAfterUpdate = multiQueryUpdater(
   computeNewDataAfterUpdate
