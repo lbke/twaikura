@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { useQuery /*, useMutation*/ } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 //import { useForm } from "react-hook-form";
 import { withApollo } from "@vulcan/next-apollo";
-import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import { useMulti, useCreate, useDelete } from "@vulcan/react-hooks";
+
+import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import Tweek from "~/models/tweek";
 
 const HomePage = () => {
@@ -60,6 +62,11 @@ const HomePage = () => {
             tweeksData.tweeks.results.map((tweek) => (
               <li key={tweek._id}>
                 {tweek.text}{" "}
+                <button>
+                  <Link href={`/tweek/${tweek._id}`}>
+                    <a>Edit</a>
+                  </Link>
+                </button>
                 <button
                   onClick={() => deleteTweek({ input: { id: tweek._id } })}
                 >

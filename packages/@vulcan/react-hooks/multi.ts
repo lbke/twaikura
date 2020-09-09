@@ -38,6 +38,7 @@ import { multiClientTemplate } from "@vulcan/graphql";
 import { VulcanModel } from "@vulcan/model";
 import merge from "lodash/merge";
 import get from "lodash/get";
+import { QueryInput } from "./typings";
 
 // default query input object
 const defaultInput = {
@@ -91,7 +92,6 @@ const getInitialPaginationInput = (options, props) => {
 const buildQueryOptions = (options, paginationInput = {}, props) => {
   let {
     input: optionsInput,
-    //pollInterval = getSetting("pollInterval", 20000),
     pollInterval = 20000,
     // generic graphQL options
     queryOptions = {},
@@ -230,12 +230,15 @@ const buildResult = (
   };
 };
 
-type UseMultiOptions = {
+interface MultiInput extends QueryInput {}
+
+interface UseMultiOptions {
   model: VulcanModel;
+  input?: MultiInput;
   fragment?: string;
   fragmentName?: string;
   extraQueries?: string; // Get more data alongside the objects
-}; // & useQuery options?
+} // & useQuery options?
 type QueryResult = { graphQLErrors: any } & ReturnType<typeof useQuery>;
 
 export const useMulti = (options: UseMultiOptions, props = {}) => {

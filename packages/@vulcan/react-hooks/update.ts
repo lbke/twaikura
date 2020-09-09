@@ -54,7 +54,7 @@ export const buildUpdateQuery = ({ typeName, fragmentName, fragment }) =>
 // Describe the update input, can be provided to the hook or the update function
 interface UpdateInput<TData> {
   data: TData;
-  _id: string;
+  id?: string;
 }
 interface UpdateVariables<TData = any> {
   input: UpdateInput<TData>;

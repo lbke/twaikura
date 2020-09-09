@@ -7,6 +7,7 @@ import { VulcanModel } from "@vulcan/model";
 
 import { computeQueryVariables } from "./variables";
 import { OperationVariables } from "apollo-client";
+import { QueryInput } from "./typings";
 
 const defaultInput = {
   enableCache: false,
@@ -87,12 +88,18 @@ const buildResult = (
   }
   return props;
 };
-type UseSingleOptions = {
+
+interface SingleInput extends QueryInput {
+  id?: string;
+  allowNull?: boolean; // if false, throw an error when not found
+}
+interface UseSingleOptions {
   model: VulcanModel;
+  input?: SingleInput;
   fragment?: string;
   fragmentName?: string;
   extraQueries?: string;
-};
+}
 
 export const useSingle = (options: UseSingleOptions, props = {}) => {
   let {
