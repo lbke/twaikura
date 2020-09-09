@@ -20,7 +20,8 @@ const TweekUpdatePage = () => {
     },
   });
 
-  const tweek = tweekData.tweek.result;
+  const tweek =
+    (tweekData && tweekData.tweek && tweekData.tweek.result) || null;
 
   const [updateTweek /*, { data: updatedTweek }*/] = useUpdate({
     model: Tweek,
@@ -34,9 +35,19 @@ const TweekUpdatePage = () => {
         {tweekData && (
           <div>
             <h2>Tweek</h2>
-            <pre>
+            {/*<pre>
               <code>{JSON.stringify(tweek, null, 2)}</code>
-            </pre>
+            </pre>*/}
+            <h3
+              style={{
+                background: "linear-gradient(to right, violet, pink)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                maxWidth: "250",
+              }}
+            >
+              {tweek.text}
+            </h3>
             <h2>Update tweek</h2>
             <form
               onSubmit={(evt) => {

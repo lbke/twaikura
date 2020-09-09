@@ -381,7 +381,7 @@ const schema = {
   },
 };
 */
-const User = createModel({
+export const User = createModel({
   typeName: "VulcanMeteorUser", // TODO: automatically create from a modelName property
   multiTypeName: "VulcanMeteorUsers",
   schema: {
@@ -411,5 +411,24 @@ const User = createModel({
     // TODO
   },
 });
+
+// @see packages/vulcan-users/lib/modules/fragments.js
+export const currentUserFragment = `
+  fragment UsersCurrent on User {
+    _id
+    username
+    createdAt
+    isAdmin
+    # displayName
+    # email
+    # emailHash
+    # slug
+    # groups
+    # services
+    # avatarUrl
+    # pageUrl
+    # locale
+  }
+`;
 
 export default User;

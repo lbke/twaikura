@@ -3,55 +3,79 @@ import { withApollo } from "@vulcan/next-apollo";
 import { VulcanMeteorHooks } from "@vulcan/meteor-legacy";
 
 const AuthPage = () => {
+  const currentUserResult = VulcanMeteorHooks.useCurrentUser();
+
   const [login] = VulcanMeteorHooks.useAuthenticateWithPassword();
   const [signup] = VulcanMeteorHooks.useSignup();
   const [logout] = VulcanMeteorHooks.useLogout();
   return (
     <div>
       <main>
+        <h2>Current User</h2>
+        {currentUserResult.loading && "Loading current user..."}
+        {currentUserResult.error && "Can't get current user"}
+        {currentUserResult.data &&
+          `Got current user: ${JSON.stringify(currentUserResult.data)}`}
         {/*<Home />*/}
-        <h2>Signup</h2>
-        <form
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            const email = evt.target["email"].value;
-            const password = evt.target["password"].value;
-            signup({ input: { email, password } });
-          }}
-        >
-          <label htmlFor="email">Email</label>
-          <input type="text" name="email" />
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" />
-          <button type="submit">Sign up</button>
-        </form>
-        <h2>Login</h2>
-        <form
-          onSubmit={async (evt) => {
-            evt.preventDefault();
-            const email = evt.target["email"].value;
-            const password = evt.target["password"].value;
-            const { data } = await login({ input: { email, password } });
-            const { authenticateWithPassword } = data;
-            const { token } = authenticateWithPassword;
-            //window.localStorage.setItem("meteor_login_token", token);
-          }}
-        >
-          <label htmlFor="email">Email</label>
-          <input type="text" name="email" />
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" />
-          <button type="submit">Login</button>
-        </form>
-        <h2>Logout</h2>
-        <button
-          onClick={async () => {
-            await logout();
-            window.localStorage.removeItem("meteor_login_token");
-          }}
-        >
-          Logout
-        </button>
+        {!(
+          currentUserResult &&
+          currentUserResult.data &&
+          currentUserResult.data.currentUser
+        ) && (
+          <>
+            <h2>Signup</h2>
+            <form
+              onSubmit={async (evt) => {
+                evt.preventDefault();
+                const email = evt.target["email"].value;
+                const password = evt.target["password"].value;
+                await signup({ input: { email, password } });
+                window.location.reload();
+              }}
+            >
+              <label htmlFor="email">Email</label>
+              <input type="text" name="email" />
+              <label htmlFor="password">Password</label>
+              <input type="password" name="password" />
+              <button type="submit">Sign up</button>
+            </form>
+            <h2>Login</h2>
+            <form
+              onSubmit={async (evt) => {
+                evt.preventDefault();
+                const email = evt.target["email"].value;
+                const password = evt.target["password"].value;
+                const { data } = await login({ input: { email, password } });
+                window.location.reload();
+                //const { authenticateWithPassword } = data;
+                //const { token } = authenticateWithPassword;
+                //window.localStorage.setItem("meteor_login_token", token);
+              }}
+            >
+              <label htmlFor="email">Email</label>
+              <input type="text" name="email" />
+              <label htmlFor="password">Password</label>
+              <input type="password" name="password" />
+              <button type="submit">Login</button>
+            </form>
+          </>
+        )}
+        {currentUserResult &&
+          currentUserResult.data &&
+          currentUserResult.data.currentUser && (
+            <>
+              <h2>Logout</h2>
+              <button
+                onClick={async () => {
+                  await logout();
+                  //window.localStorage.removeItem("meteor_login_token");
+                  window.location.reload();
+                }}
+              >
+                Logout
+              </button>
+            </>
+          )}
       </main>
 
       <style jsx>{`
