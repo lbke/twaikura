@@ -1,7 +1,15 @@
+import { demo } from "@vulcan/demo";
+console.log("vulcan/demo import", demo);
 import { createModel } from "@vulcan/model";
+import { extendModel as extendModelWithGraphql } from "@vulcan/graphql";
 const Tweek = createModel({
-  typeName: "Tweek", // TODO: automatically create from a modelName property
-  multiTypeName: "Tweeks",
+  name: "Tweek",
+  extensions: [
+    extendModelWithGraphql({
+      typeName: "Tweek", // TODO: automatically create from a modelName property
+      multiTypeName: "Tweeks",
+    }),
+  ],
   schema: {
     _id: {
       type: String,
