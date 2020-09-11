@@ -1,0 +1,19 @@
+#! /bin/bash
+yarn link @vulcan/core
+yarn link @vulcan/demo
+yarn link @vulcan/graphql
+yarn link @vulcan/mdx
+yarn link @vulcan/meteor-legacy
+yarn link @vulcan/model
+yarn link @vulcan/mongo
+yarn link @vulcan/multi-env-demo
+yarn link @vulcan/next-apollo
+yarn link @vulcan/next-config
+yarn link @vulcan/next-material-ui
+yarn link @vulcan/next-style-collector
+yarn link @vulcan/next-styled-components
+yarn link @vulcan/next-utils
+yarn link @vulcan/next-webpack
+yarn link @vulcan/react-hooks
+yarn link @vulcan/schema
+yarn link @vulcan/utils

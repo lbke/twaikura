@@ -1,6 +1,6 @@
 // @see https://github.com/cypress-io/cypress-webpack-preprocessor/tree/master/examples/use-ts-loader
 const path = require("path");
-const extendWebpackConfig = require("../packages/@vulcan/webpack/extendWebpackConfig");
+const extendWebpackConfig = require("@vulcan/next-webpack/extendWebpackConfig");
 
 const config = {
   module: {
