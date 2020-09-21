@@ -7,7 +7,9 @@ yarn link @vulcan/meteor-legacy
 yarn link @vulcan/model
 yarn link @vulcan/mongo
 yarn link @vulcan/multi-env-demo
-yarn link @vulcan/next-apollo
+# Those packages are not published yet
+# @see https://github.com/VulcanJS/vulcan-npm/issues/6
+# yarn link @vulcan/next-apollo
 # yarn link @vulcan/next-config
 yarn link @vulcan/next-material-ui
 yarn link @vulcan/next-style-collector
