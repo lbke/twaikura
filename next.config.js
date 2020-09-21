@@ -1,4 +1,6 @@
 const { extendNextConfig } = require("./packages/@vulcan/next-config");
+const withTM = require('next-transpile-modules')(['@vulcan/next-apollo']); // pass the modules you would like to see transpiled
+
 //const withMDX = require("@next/mdx")({ extension: /\.mdx?$/ });
 const withMDXEnhanced = require("next-mdx-enhanced");
 
@@ -77,6 +79,7 @@ module.exports = (phase, { defaultConfig }) => {
   extendedConfig = flowRight([
     withPkgInfo,
     withMDX,
+    withTM
     // add other wrappers here
   ])(extendedConfig);
 
