@@ -17,3 +17,7 @@ yarn link @vulcan/next-utils
 yarn link @vulcan/react-hooks
 yarn link @vulcan/schema
 yarn link @vulcan/utils
+
+# Link other packages that we don't want to duplicate
+yarn link react
+yarn link react-dom
