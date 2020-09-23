@@ -4305,6 +4305,11 @@
     "@vulcanjs/schema" "^0.0.6"
     "@vulcanjs/utils" "^0.0.6"
 
+"@vulcanjs/mdx@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/mdx/-/mdx-0.0.6.tgz#9c28100d2bc9bbd3c179cde26c307a91f22c11be"
+  integrity sha512-wjUNIHkLbcSzZEyE+UOBgaVq3v0nnzPNKWPOzb2kbY3EraNjPDqNQzMx3jIu1zu4zbDRFT1TC31jUvmK8UPWjQ==
+
 "@vulcanjs/meteor-legacy@^0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@vulcanjs/meteor-legacy/-/meteor-legacy-0.0.6.tgz#1371c6e76229dcd25ba2dd76611165a454712833"
