@@ -1,6 +1,6 @@
 //import { useForm } from "react-hook-form";
-import { withApollo } from "@vulcan/next-apollo";
-import { VulcanMeteorHooks } from "@vulcan/meteor-legacy";
+import { withApollo } from "@vulcanjs/next-apollo";
+import { VulcanMeteorHooks } from "@vulcanjs/meteor-legacy";
 
 const AuthPage = () => {
   const currentUserResult = VulcanMeteorHooks.useCurrentUser();

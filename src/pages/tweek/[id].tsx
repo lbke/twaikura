@@ -1,7 +1,7 @@
 //import { useForm } from "react-hook-form";
-import { withApollo } from "@vulcan/next-apollo";
+import { withApollo } from "@vulcanjs/next-apollo";
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
-import { useUpdate, useSingle } from "@vulcan/react-hooks";
+import { useUpdate, useSingle } from "@vulcanjs/react-hooks";
 import Tweek from "~/models/tweek";
 
 import { useRouter } from "next/router";

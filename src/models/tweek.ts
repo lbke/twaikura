@@ -1,8 +1,8 @@
-import { createModel } from "@vulcan/model";
+import { createModel } from "@vulcanjs/model";
 import {
   extendModel as extendModelWithGraphql,
   VulcanGraphqlModel,
-} from "@vulcan/graphql";
+} from "@vulcanjs/graphql";
 const Tweek = createModel({
   name: "Tweek",
   extensions: [

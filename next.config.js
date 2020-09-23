@@ -1,4 +1,4 @@
-const { extendNextConfig } = require("./packages/@vulcan/next-config");
+const { extendNextConfig } = require("./packages/@vulcanjs/next-config");
 //const withMDX = require("@next/mdx")({ extension: /\.mdx?$/ });
 const withMDXEnhanced = require("next-mdx-enhanced");
 

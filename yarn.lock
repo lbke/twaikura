@@ -4284,6 +4284,51 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
+"@vulcanjs/demo@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/demo/-/demo-0.0.5.tgz#ddebba3e55344d78753e43efbd5c7b0bce39272b"
+  integrity sha512-GXbYDwEzLTdYQqBbWYnPscP9V91SqOf+4mYDIPPhG7RjkSL8I8V+XSWZT18/Em7tHIUj400l84/z7pUxztf7yA==
+
+"@vulcanjs/graphql@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/graphql/-/graphql-0.0.5.tgz#010d95ecd86d67e237d9781508aac5ae37b6125a"
+  integrity sha512-RIFxnnh6/8a/vxXb6RI6rknRhEp0rYsmuUaM4LtTfOS126SjaNoiSOgPMS2G2dw7DhoVHsZd2Ava3gb1SGs//w==
+  dependencies:
+    "@vulcanjs/model" "^0.0.5"
+
+"@vulcanjs/model@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.0.5.tgz#df732676fd01fbcf18404fb9b4c1b9ebd8d8df5e"
+  integrity sha512-9zV1Gpb3CoTEH9DpwxEQj4lUl5LR1xp4M1oXGGpo0QTRuD8Zxa0A7Ht3YRvv2c5QJw0EW7wStbw6L7/YjR4bYQ==
+  dependencies:
+    moment-timezone "^0.5.31"
+    simpl-schema "^1.10.1"
+
+"@vulcanjs/mongo@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/mongo/-/mongo-0.0.5.tgz#04588dd970863d0feb82f97d04ddc2b91de6b374"
+  integrity sha512-f5vEj9SGSlUem4orC8BmoRErBdV+2TVCnPs+rYdCBRG4x8UCWxwe/uPkZjVBvupekgkVNTJdgwCJhb/+akWmZA==
+  dependencies:
+    "@vulcanjs/model" "^0.0.5"
+    mongodb "^3.6.2"
+
+"@vulcanjs/react-hooks@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/react-hooks/-/react-hooks-0.0.5.tgz#dc1f3d3baca3c30bec1af82eceaf544931814bc3"
+  integrity sha512-LiSUQ/3xiBbS0kykSrnykHKikE5tUsgodwDR8mhX8GcDC/AYxJWgIe+QYRAm55Fz2PHV0jWNxWf8EQDBnM4qZw==
+  dependencies:
+    "@apollo/client" "^3.2.0"
+    "@vulcanjs/graphql" "^0.0.5"
+    graphql-tag "^2.11.0"
+    lodash "^4.17.20"
+    mingo "^3.0.6"
+    react "^16.13.1"
+
+"@vulcanjs/schema@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/schema/-/schema-0.0.5.tgz#96a13a4be0a3ade023d7150c3525b3b6c4aae10e"
+  integrity sha512-TmGEv9bnsAIfzRz+bRKBV9jijb7wpZ4fx7WAtlOeEaTQVv8ZFbskHJyyAmlPnMTCjr43BATviJM8Jb+BNScnsg==
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -5700,6 +5745,14 @@ bl@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/bl/-/bl-2.2.0.tgz#e1a574cdf528e4053019bb800b041c0ac88da493"
   integrity sha512-wbgvOpqopSr7uq6fJrLH8EsvYMJf9gzfo2jCsL2eTy75qXPukA4pCgHamOQkZtY5vmfVtjB+P3LNlMHW5CEZXA==
+  dependencies:
+    readable-stream "^2.3.5"
+    safe-buffer "^5.1.1"
+
+bl@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/bl/-/bl-2.2.1.tgz#8c11a7b730655c5d56898cdc871224f40fd901d5"
+  integrity sha512-6Pesp1w0DEX1N550i/uGV/TqucVL4AM/pgThFSN/Qq9si1/DF9aIHs1BxD8V/QU0HoeHO6cQRTAuYnLPKq1e4g==
   dependencies:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
@@ -11625,6 +11678,11 @@ lodash@^4.0.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.1
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
+lodash@^4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
 log-symbols@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
@@ -12172,6 +12230,19 @@ mongodb@3.5.9:
   integrity sha512-vXHBY1CsGYcEPoVWhwgxIBeWqP3dSu9RuRDsoLRPTITrcrgm1f0Ubu1xqF9ozMwv53agmEiZm0YGo+7WL3Nbug==
   dependencies:
     bl "^2.2.0"
+    bson "^1.1.4"
+    denque "^1.4.1"
+    require_optional "^1.0.1"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
+
+mongodb@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.6.2.tgz#1154a4ac107bf1375112d83a29c5cf97704e96b6"
+  integrity sha512-sSZOb04w3HcnrrXC82NEh/YGCmBuRgR+C1hZgmmv4L6dBz4BkRse6Y8/q/neXer9i95fKUBbFi4KgeceXmbsOA==
+  dependencies:
+    bl "^2.2.1"
     bson "^1.1.4"
     denque "^1.4.1"
     require_optional "^1.0.1"
@@ -14232,7 +14303,7 @@ react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.13.0, react@^16.8.3, react@^16.8.6:
+react@^16.13.0, react@^16.13.1, react@^16.8.3, react@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
@@ -15189,6 +15260,15 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
+
+simpl-schema@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/simpl-schema/-/simpl-schema-1.10.1.tgz#e598ba1b3b25c721f83f4d9335dbc5d4220d3e02"
+  integrity sha512-H7ejTIpdGiq1bk1OOtAClcmLeTOVJg8J+G+MNVVwLH97p8VNcIrgBiJQ5BQEXmsnm0QP+ZJmikeotWiVgI3ZAw==
+  dependencies:
+    clone "^2.1.2"
+    message-box "^0.2.7"
+    mongo-object "^0.1.4"
 
 simpl-schema@^1.9.0:
   version "1.9.0"
