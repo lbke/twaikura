@@ -4296,10 +4296,37 @@
   dependencies:
     "@vulcanjs/model" "^0.0.5"
 
+"@vulcanjs/graphql@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/graphql/-/graphql-0.0.6.tgz#c98bdf57cea005c29c2c848f0efd8dfd46ab83ec"
+  integrity sha512-IhegXbTQbrtJQhuJDp4CiCFvfpUonzsxWVMItgadgFIkptFgDuoTiHDf7Gdq5zOnnk5F0enbNqs+KMHQ9NGnpA==
+  dependencies:
+    "@vulcanjs/model" "^0.0.6"
+    "@vulcanjs/schema" "^0.0.6"
+    "@vulcanjs/utils" "^0.0.6"
+
+"@vulcanjs/meteor-legacy@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/meteor-legacy/-/meteor-legacy-0.0.6.tgz#1371c6e76229dcd25ba2dd76611165a454712833"
+  integrity sha512-63DdfY50X2FxeZKvjwYH069IQA/5wwQVjcbqDSLNrTog84SvwjT4mAHwmutVm75c4uU7f1TQT679Bbd+vJ2o5Q==
+  dependencies:
+    "@apollo/client" "^3.2.0"
+    "@vulcanjs/graphql" "^0.0.6"
+    "@vulcanjs/model" "^0.0.6"
+    graphql "^15.3.0"
+
 "@vulcanjs/model@^0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.0.5.tgz#df732676fd01fbcf18404fb9b4c1b9ebd8d8df5e"
   integrity sha512-9zV1Gpb3CoTEH9DpwxEQj4lUl5LR1xp4M1oXGGpo0QTRuD8Zxa0A7Ht3YRvv2c5QJw0EW7wStbw6L7/YjR4bYQ==
+  dependencies:
+    moment-timezone "^0.5.31"
+    simpl-schema "^1.10.1"
+
+"@vulcanjs/model@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.0.6.tgz#df56ae21d32be3d9a1792f80ba70d3b64b5dffd6"
+  integrity sha512-+1kihQ/qnpN2rODCjkw6hdBKkdx+sfzCR7nvr/JDyulqzG9l0w+iAcJuJfuVU+aQGiouhdPm96mK0VQ/GagisQ==
   dependencies:
     moment-timezone "^0.5.31"
     simpl-schema "^1.10.1"
@@ -4328,6 +4355,16 @@
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@vulcanjs/schema/-/schema-0.0.5.tgz#96a13a4be0a3ade023d7150c3525b3b6c4aae10e"
   integrity sha512-TmGEv9bnsAIfzRz+bRKBV9jijb7wpZ4fx7WAtlOeEaTQVv8ZFbskHJyyAmlPnMTCjr43BATviJM8Jb+BNScnsg==
+
+"@vulcanjs/schema@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/schema/-/schema-0.0.6.tgz#4fd4ca1af5ded7d0000d3d211371742d1c341cc8"
+  integrity sha512-54DN4ohOGHDsVI5c9DEuzO//ZHibocmyhgsX6ecexWIMQ8FsPh01eTOoNRK96Xb9lTGLeLOzKe3y+9cS5EAXcA==
+
+"@vulcanjs/utils@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/utils/-/utils-0.0.6.tgz#6f1b4536f105d0270da323d6710f91efa9c8f524"
+  integrity sha512-tDt7J5AswwDhx/npoyGAWwz3wYLUnqYjdmZOmrFWcZB52fagW+wN2uU5BBKHlwHcQ3bvCZ34VkAE5INLKba94g==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
@@ -9343,6 +9380,11 @@ graphql@14.6.0, graphql@^14.5.3:
   integrity sha512-VKzfvHEKybTKjQVpTFrA5yUq2S9ihcZvfJAtsDBBCuV6wauPu1xl/f9ehgVf0FcEJJs4vz6ysb/ZMkGigQZseg==
   dependencies:
     iterall "^1.2.2"
+
+graphql@^15.3.0:
+  version "15.3.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.3.0.tgz#3ad2b0caab0d110e3be4a5a9b2aa281e362b5278"
+  integrity sha512-GTCJtzJmkFLWRfFJuoo9RWWa/FfamUHgiFosxi/X1Ani4AVWbeyBenZTNX6dM+7WSbbFfTo/25eh0LLkwHMw2w==
 
 gray-matter@^4.0.2:
   version "4.0.2"

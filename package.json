@@ -50,6 +50,8 @@
     "@next/mdx": "^9.4.4",
     "@vulcanjs/demo": "^0.0.5",
     "@vulcanjs/graphql": "^0.0.5",
+    "@vulcanjs/meteor-legacy": "^0.0.6",
+    "@vulcanjs/model": "^0.0.6",
     "@vulcanjs/mongo": "^0.0.5",
     "@vulcanjs/react-hooks": "^0.0.5",
     "@vulcanjs/schema": "^0.0.5",
