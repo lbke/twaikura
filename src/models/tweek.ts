@@ -63,4 +63,11 @@ const Tweek = createModel({
   },
 }) as VulcanGraphqlModel;
 
+export interface TweekType {
+  _id: string;
+  createdAt: Date;
+  text: string;
+  twaikId: string;
+}
+
 export default Tweek;

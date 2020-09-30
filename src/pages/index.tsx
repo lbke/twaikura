@@ -6,7 +6,7 @@ import { withApollo } from "@vulcanjs/next-apollo";
 import { useMulti, useCreate, useDelete } from "@vulcanjs/react-hooks";
 
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
-import Tweek from "~/models/tweek";
+import Tweek, { TweekType } from "~/models/tweek";
 
 const HomePage = () => {
   const vulcanSiteDataQuery = gql`
@@ -25,7 +25,7 @@ const HomePage = () => {
     data: tweeksData,
     loading: loadingTweeks,
     error: errorTweeks,
-  } = useMulti({
+  } = useMulti<TweekType>({
     model: Tweek,
   });
 
