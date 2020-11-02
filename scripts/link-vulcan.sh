@@ -11,10 +11,10 @@ yarn link @vulcanjs/multi-env-demo
 # @see https://github.com/VulcanJS/vulcan-npm/issues/6
 # yarn link @vulcanjs/next-apollo
 # yarn link @vulcanjs/next-config
-yarn link @vulcanjs/next-material-ui
-yarn link @vulcanjs/next-style-collector
-yarn link @vulcanjs/next-styled-components
-yarn link @vulcanjs/next-utils
+# yarn link @vulcanjs/next-material-ui
+# yarn link @vulcanjs/next-style-collector
+# yarn link @vulcanjs/next-styled-components
+# yarn link @vulcanjs/next-utils
 # yarn link @vulcanjs/next-webpack
 yarn link @vulcanjs/react-hooks
 yarn link @vulcanjs/schema

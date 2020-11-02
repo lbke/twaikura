@@ -3,9 +3,14 @@ import cors from "cors";
 import mongoose from "mongoose";
 import corsOptions from "~/api/cors";
 import { ApolloServer, gql } from "apollo-server-express";
-import { makeExecutableSchema } from "graphql-tools";
+import { makeExecutableSchema, mergeSchemas } from "graphql-tools";
 import mongoConnection from "~/api/middlewares/mongoConnection";
+import { buildApolloSchema } from "@vulcanjs/graphql";
 
+import Tweek from "~/models/tweek";
+
+const vulcanRawSchema = buildApolloSchema([Tweek]);
+const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
 /**
  * Sample, naive, Apollo server. You can move this code in `src/server`
  * and code your own API.
@@ -49,9 +54,11 @@ const resolvers = {
 };
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
+const mergedSchema = mergeSchemas({ schemas: [vulcanSchema, schema] });
+
 // Define the server (using Express for easier middleware usage)
 const server = new ApolloServer({
-  schema,
+  schema: mergedSchema,
   introspection: process.env.NODE_ENV !== "production",
   playground:
     process.env.NODE_ENV !== "production"

@@ -2,6 +2,8 @@ import { createModel } from "@vulcanjs/model";
 import {
   extendModel as extendModelWithGraphql,
   VulcanGraphqlModel,
+  buildDefaultQueryResolvers,
+  buildDefaultMutationResolvers,
 } from "@vulcanjs/graphql";
 const Tweek = createModel({
   name: "Tweek",
@@ -9,6 +11,8 @@ const Tweek = createModel({
     extendModelWithGraphql({
       typeName: "Tweek", // TODO: automatically create from a modelName property
       multiTypeName: "Tweeks",
+      queryResolvers: buildDefaultQueryResolvers({ typeName: "Tweek" }),
+      mutationResolvers: buildDefaultMutationResolvers({ typeName: "Tweek" }),
     }),
   ],
   schema: {
