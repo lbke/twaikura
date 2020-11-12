@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useQuery /*, useMutation*/ } from "@apollo/client";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 //import { useForm } from "react-hook-form";
 import { useMulti, useCreate, useDelete } from "@vulcanjs/react-hooks";
 

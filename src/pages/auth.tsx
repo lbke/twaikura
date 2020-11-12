@@ -1,5 +1,4 @@
 //import { useForm } from "react-hook-form";
-import { withApollo } from "@vulcanjs/next-apollo";
 import { VulcanMeteorHooks } from "@vulcanjs/meteor-legacy";
 
 const AuthPage = () => {
@@ -93,4 +92,4 @@ const AuthPage = () => {
 
 // export default withApollo({ graphqlUri })(MyApp, { getDataFromTree });
 
-export default withApollo(AuthPage);
+export default AuthPage;

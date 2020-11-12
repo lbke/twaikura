@@ -49,14 +49,14 @@
     "@mdx-js/loader": "^1.6.6",
     "@mdx-js/react": "^1.6.13",
     "@next/mdx": "^9.4.4",
+    "@vulcanjs/demo": "^0.1.0",
     "@vulcanjs/graphql": "^0.1.0",
+    "@vulcanjs/mdx": "^0.1.0",
     "@vulcanjs/meteor-legacy": "^0.1.0",
     "@vulcanjs/model": "^0.1.0",
     "@vulcanjs/mongo": "^0.1.0",
     "@vulcanjs/react-hooks": "^0.1.0",
     "@vulcanjs/schema": "^0.1.0",
-    "@vulcanjs/demo": "^0.1.0",
-    "@vulcanjs/mdx": "^0.1.0",
     "apollo-server-express": "2.14.2",
     "babel-jest": "26.0.1",
     "babel-plugin-istanbul": "6.0.0",
@@ -65,8 +65,7 @@
     "cross-env": "7.0.2",
     "debug": "4.1.1",
     "express": "4.17.1",
-    "graphql": "14.6.0",
-    "graphql-tag": "2.10.3",
+    "graphql": "15.4.0",
     "i18next": "^19.4.5",
     "i18next-browser-languagedetector": "^4.2.0",
     "i18next-http-backend": "^1.0.15",
@@ -146,6 +145,7 @@
   },
   "resolutions": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "graphql-tools": "^4.0.0"
   }
 }

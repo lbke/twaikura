@@ -1,6 +1,6 @@
 import { useQuery /*, useMutation*/ } from "@apollo/client";
 import { createApolloClient } from "@vulcanjs/next-apollo";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const graphqlUri = "https://rickandmortyapi.com/graphql";
 const client = createApolloClient({ graphqlUri });

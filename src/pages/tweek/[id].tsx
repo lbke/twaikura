@@ -1,5 +1,4 @@
 //import { useForm } from "react-hook-form";
-import { withApollo } from "@vulcanjs/next-apollo";
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import { useUpdate, useSingle } from "@vulcanjs/react-hooks";
 import Tweek from "~/models/tweek";
@@ -78,4 +77,4 @@ const TweekUpdatePage = () => {
 
 // export default withApollo({ graphqlUri })(MyApp, { getDataFromTree });
 
-export default withApollo(TweekUpdatePage);
+export default TweekUpdatePage;
