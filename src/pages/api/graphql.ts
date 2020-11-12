@@ -5,12 +5,24 @@ import corsOptions from "~/api/cors";
 import { ApolloServer, gql } from "apollo-server-express";
 import { makeExecutableSchema, mergeSchemas } from "graphql-tools";
 import mongoConnection from "~/api/middlewares/mongoConnection";
-import { buildApolloSchema } from "@vulcanjs/graphql";
+import { buildApolloSchema, Connector } from "@vulcanjs/graphql";
 
 import Tweek from "~/models/tweek";
 
 const vulcanRawSchema = buildApolloSchema([Tweek]);
 const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
+
+const TweekConnector: Partial<Connector> = {
+  find: async () => [],
+  filter: () => ({ selector: {}, options: {}, filteredFields: [] }),
+  count: async () => 0,
+};
+const context = {
+  Tweek: {
+    model: Tweek,
+    connector: TweekConnector,
+  },
+};
 /**
  * Sample, naive, Apollo server. You can move this code in `src/server`
  * and code your own API.
@@ -59,6 +71,7 @@ const mergedSchema = mergeSchemas({ schemas: [vulcanSchema, schema] });
 // Define the server (using Express for easier middleware usage)
 const server = new ApolloServer({
   schema: mergedSchema,
+  context,
   introspection: process.env.NODE_ENV !== "production",
   playground:
     process.env.NODE_ENV !== "production"
