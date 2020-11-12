@@ -8,15 +8,30 @@ import mongoConnection from "~/api/middlewares/mongoConnection";
 import { buildApolloSchema, Connector } from "@vulcanjs/graphql";
 
 import Tweek from "~/models/tweek";
+import { createMongooseConnector } from "~/api/mongoose/connector";
 
+/**
+ * Example random call with mongoose
+ *   public async randomTweekQuery() {
+    return (await TweekModel.aggregate([
+      // select one random value
+      {
+        $sample: { size: 1 }
+      }
+    ]).exec())[0]; // only first item here
+  }
+ */
 const vulcanRawSchema = buildApolloSchema([Tweek]);
 const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
 
-const TweekConnector: Partial<Connector> = {
+/*const TweekConnector: Partial<Connector> = {
   find: async () => [],
+  findOne: async () => ({}),
   filter: () => ({ selector: {}, options: {}, filteredFields: [] }),
   count: async () => 0,
-};
+};*/
+const TweekConnector = createMongooseConnector(Tweek);
+
 const context = {
   Tweek: {
     model: Tweek,
