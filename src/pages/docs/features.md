@@ -76,7 +76,7 @@ This folder structure is officially supported by Next. It is relevant when you h
 
 The structure of a plugin system of Next is still [under discussion](https://github.com/vercel/next.js/discussions/9133). In the meantime, we strive to provide code as clean as possible, structured in package, so you can easily remove prebundled features.
 
-To do so, we currently use a Webpack config so folders in `packages/@vulcan` can be imported the same way as `node_modules`. For instance, `packages/@vulcanjs/next-utils` can be imported as `import "@vulcanjs/next-utils"` in your code.
+To do so, we currently use a Webpack config so folders in `packages/@vulcanjs` can be imported the same way as `node_modules`. For instance, `packages/@vulcanjs/next-utils` can be imported as `import "@vulcanjs/next-utils"` in your code.
 You can reproduce the same behaviour with any other prefix by changing `tsconfig.common.json`
 
 However, you are **not** forced to structure your own code as packages.
@@ -321,8 +321,7 @@ Package.json naming convention are not intuitive and do not allow for a clean, e
 
 ### Storybook
 
-Write Storybook stories for full pages (need Next mocks, maybe tree-shaking removing server imports like Next does)
-Storybook static build (currently broken)
+Demo a story for a full page
 
 ### I18n
 
