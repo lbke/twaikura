@@ -15,6 +15,9 @@ const Tweek = createModel({
       mutationResolvers: buildDefaultMutationResolvers({ typeName: "Tweek" }),
     }),
   ],
+  permissions: {
+    canRead: ["guests"],
+  },
   schema: {
     _id: {
       type: String,
