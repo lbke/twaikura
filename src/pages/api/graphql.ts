@@ -32,6 +32,22 @@ const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
 };*/
 const TweekConnector = createMongooseConnector(Tweek);
 
+// TODO: find best practices to seed in a serverless context
+const seedTweeks = async () => {
+  const count = await TweekConnector.count({});
+  if (count === 0) {
+    console.log("No Tweeks found, seeding one");
+    try {
+      await TweekConnector.create({ text: "Hello world," });
+    } catch (error) {
+      console.error("Could not seed tweeks", error);
+    }
+  } else {
+    console.log(`Found ${count} Tweek(s) in the database, no need to seed.`);
+  }
+};
+seedTweeks();
+
 const context = {
   Tweek: {
     model: Tweek,

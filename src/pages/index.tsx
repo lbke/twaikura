@@ -27,18 +27,16 @@ const HomePage = () => {
   });
   // TODO: randomize, using a custom query instead
   const {
-    data: randomLonelyTweek,
+    data: randomTweekData,
     loading: loadingRandomLonelyTweek,
     error: errorRandomLonelyTweek,
   } = useSingle<TweekType>({
     model: Tweek,
     input: {
-      filter: {
-        // tweek with no matching twaik
-        twaikId: { _is_null: true },
-      },
+      filter: {},
     },
   });
+  const randomTweek = randomTweekData?.tweek?.result;
   const [createTweek, { data: createdTweek }] = useCreate({
     model: Tweek,
   });
@@ -46,16 +44,24 @@ const HomePage = () => {
     <MDXMuiLayout>
       <main>
         <h2>Write your own Twaiku</h2>
-        <form
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            const text = evt.target["text"].value;
-            createTweek({ input: { data: { text } } });
-          }}
-        >
-          <input type="text" name="text" autoFocus />
-          <button type="submit">Tweek</button>
-        </form>
+        {(errorRandomLonelyTweek ||
+          (!loadingRandomLonelyTweek && !randomTweek)) && (
+          <p>No tweek to complete, sorry :(</p>
+        )}
+        {loadingRandomLonelyTweek && <p>Loading a tweek...</p>}
+        {randomTweek && <p>{JSON.stringify(randomTweek)}</p>}
+        {randomTweek && (
+          <form
+            onSubmit={(evt) => {
+              evt.preventDefault();
+              const text = evt.target["text"].value;
+              createTweek({ input: { data: { text } } });
+            }}
+          >
+            <input type="text" name="text" autoFocus />
+            <button type="submit">Tweek</button>
+          </form>
+        )}
         <h2>Latest tweeks</h2>
         {errorTweeks && "Error while fetching tweeks"}
         <ul>

@@ -51,6 +51,9 @@ const Tweek = createModel({
       max: 120,
       input: "textarea",
     },
+    /*
+    Instead the Twaik (end of a twaiku) has a beggining, but a Tweek can have a lot of Twaik
+    We should instead use a virtual resolver or a paginated query
     twaikId: {
       type: String,
       optional: true,
@@ -63,7 +66,7 @@ const Tweek = createModel({
         typeName: "Twaik",
         kind: "hasOne",
       },
-    },
+    },*/
   },
 }) as VulcanGraphqlModel;
 
