@@ -9,7 +9,6 @@ import { buildApolloSchema, Connector } from "@vulcanjs/graphql";
 
 import Tweek from "~/models/tweek";
 import { createMongooseConnector } from "~/api/mongoose/connector";
-import { create } from "domain";
 import Twaik from "~/models/twaik";
 
 /**
@@ -62,12 +61,9 @@ const context = {
   },
 };
 /**
- * Sample, naive, Apollo server. You can move this code in `src/server`
- * and code your own API.
- *
- * Check our GraphQL framework Vulcan.js to build your server using a declarative approach
- * http://vulcanjs.org/
+ * Sample Apollo server
  */
+/*
 const typeDefs = gql`
   type Query {
     users: [User!]!
@@ -104,7 +100,10 @@ const resolvers = {
 };
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const mergedSchema = mergeSchemas({ schemas: [vulcanSchema, schema] });
+*/
+
+// NOTE: schema stitching can cause a bad developer experience with errors
+const mergedSchema = vulcanSchema; // mergeSchemas({ schemas: [vulcanSchema, schema] });
 
 // Define the server (using Express for easier middleware usage)
 const server = new ApolloServer({

@@ -20,6 +20,7 @@ const Twaik = createModel({
   ],
   permissions: {
     canRead: ["guests"],
+    canCreate: ["guests"],
   },
   schema: {
     _id: {

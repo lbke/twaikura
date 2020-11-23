@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 //import { useForm } from "react-hook-form";
 import { useMulti, useCreate, useSingle } from "@vulcanjs/react-hooks";
@@ -32,6 +33,29 @@ const HomePage = () => {
   const [createTwaik] = useCreate<TwaikType>({
     model: Twaik,
   });
+
+  // Form state management
+  const [isCreatingTwaik, setIsCreatingTwaik] = useState(false);
+  const [hasCreatedTwaik, setHasCreatedTwaik] = useState(false);
+  const [hasFailedCreatingTwaik, setHasFailedCreatingTwaik] = useState(false);
+  const onTwaikCreate = async (evt) => {
+    try {
+      evt.preventDefault();
+      setIsCreatingTwaik(true);
+      setHasCreatedTwaik(false);
+      setHasFailedCreatingTwaik(false);
+      const text = evt.target["text"].value;
+      await createTwaik({
+        input: { data: { text, tweekId: randomTweek._id } },
+      });
+      setHasCreatedTwaik(true);
+    } catch (e) {
+      setHasFailedCreatingTwaik(true);
+    } finally {
+      setIsCreatingTwaik(false);
+    }
+  };
+
   return (
     <MDXMuiLayout>
       <main>
@@ -42,17 +66,16 @@ const HomePage = () => {
         {loadingRandomTweek && <p>Loading a tweek...</p>}
         {randomTweek && <p>{randomTweek.text}</p>}
         {randomTweek && (
-          <form
-            onSubmit={(evt) => {
-              evt.preventDefault();
-              const text = evt.target["text"].value;
-              createTwaik({
-                input: { data: { text, tweekId: randomTweek._id } },
-              });
-            }}
-          >
+          <form onSubmit={onTwaikCreate}>
             <input type="text" name="text" autoFocus />
-            <button type="submit">Tweek</button>
+            {!isCreatingTwaik && <button type="submit">Tweek</button>}
+            {isCreatingTwaik && (
+              <button type="submit" disabled>
+                Tweeking...
+              </button>
+            )}
+            {hasCreatedTwaik && <p>Successfully Tweeked</p>}
+            {hasFailedCreatingTwaik && <p>Failed Tweeking :(</p>}
           </form>
         )}
         <h2>Latest tweeks</h2>
