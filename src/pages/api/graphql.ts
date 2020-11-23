@@ -9,6 +9,8 @@ import { buildApolloSchema, Connector } from "@vulcanjs/graphql";
 
 import Tweek from "~/models/tweek";
 import { createMongooseConnector } from "~/api/mongoose/connector";
+import { create } from "domain";
+import Twaik from "~/models/twaik";
 
 /**
  * Example random call with mongoose
@@ -21,7 +23,7 @@ import { createMongooseConnector } from "~/api/mongoose/connector";
     ]).exec())[0]; // only first item here
   }
  */
-const vulcanRawSchema = buildApolloSchema([Tweek]);
+const vulcanRawSchema = buildApolloSchema([Tweek, Twaik]);
 const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
 
 /*const TweekConnector: Partial<Connector> = {
@@ -31,6 +33,7 @@ const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
   count: async () => 0,
 };*/
 const TweekConnector = createMongooseConnector(Tweek);
+const TwaikConnector = createMongooseConnector(Twaik);
 
 // TODO: find best practices to seed in a serverless context
 const seedTweeks = async () => {
@@ -52,6 +55,10 @@ const context = {
   Tweek: {
     model: Tweek,
     connector: TweekConnector,
+  },
+  Twaik: {
+    model: Twaik,
+    connector: TwaikConnector,
   },
 };
 /**

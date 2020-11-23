@@ -1,17 +1,10 @@
-import { useState } from "react";
 import Link from "next/link";
-import { useQuery /*, useMutation*/ } from "@apollo/client";
-import { gql } from "@apollo/client";
 //import { useForm } from "react-hook-form";
-import {
-  useMulti,
-  useCreate,
-  useDelete,
-  useSingle,
-} from "@vulcanjs/react-hooks";
+import { useMulti, useCreate, useSingle } from "@vulcanjs/react-hooks";
 
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import Tweek, { TweekType } from "~/models/tweek";
+import Twaik, { TwaikType } from "~/models/twaik";
 
 const HomePage = () => {
   const {
@@ -25,11 +18,10 @@ const HomePage = () => {
       sort: { createdAt: "asc" },
     },
   });
-  // TODO: randomize, using a custom query instead
   const {
     data: randomTweekData,
-    loading: loadingRandomLonelyTweek,
-    error: errorRandomLonelyTweek,
+    loading: loadingRandomTweek,
+    error: errorRandomTweek,
   } = useSingle<TweekType>({
     model: Tweek,
     input: {
@@ -37,25 +29,26 @@ const HomePage = () => {
     },
   });
   const randomTweek = randomTweekData?.tweek?.result;
-  const [createTweek, { data: createdTweek }] = useCreate({
-    model: Tweek,
+  const [createTwaik] = useCreate<TwaikType>({
+    model: Twaik,
   });
   return (
     <MDXMuiLayout>
       <main>
         <h2>Write your own Twaiku</h2>
-        {(errorRandomLonelyTweek ||
-          (!loadingRandomLonelyTweek && !randomTweek)) && (
+        {(errorRandomTweek || (!loadingRandomTweek && !randomTweek)) && (
           <p>No tweek to complete, sorry :(</p>
         )}
-        {loadingRandomLonelyTweek && <p>Loading a tweek...</p>}
-        {randomTweek && <p>{JSON.stringify(randomTweek)}</p>}
+        {loadingRandomTweek && <p>Loading a tweek...</p>}
+        {randomTweek && <p>{randomTweek.text}</p>}
         {randomTweek && (
           <form
             onSubmit={(evt) => {
               evt.preventDefault();
               const text = evt.target["text"].value;
-              createTweek({ input: { data: { text } } });
+              createTwaik({
+                input: { data: { text, tweekId: randomTweek._id } },
+              });
             }}
           >
             <input type="text" name="text" autoFocus />

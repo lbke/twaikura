@@ -6,13 +6,14 @@ import {
   buildDefaultMutationResolvers,
 } from "@vulcanjs/graphql";
 
-const typeName = "Tweek";
-const Tweek = createModel({
-  name: "Tweek",
+const typeName = "Twaik";
+const multiTypeName = "Twaiks";
+const Twaik = createModel({
+  name: typeName,
   extensions: [
     extendModelWithGraphql({
       typeName, // TODO: automatically create from a modelName property
-      multiTypeName: "Tweeks",
+      multiTypeName,
       queryResolvers: buildDefaultQueryResolvers({ typeName }),
       mutationResolvers: buildDefaultMutationResolvers({ typeName }),
     }),
@@ -56,10 +57,7 @@ const Tweek = createModel({
       max: 120,
       input: "textarea",
     },
-    /*
-    Instead the Twaik (end of a twaiku) has a beggining, but a Tweek can have a lot of Twaik
-    We should instead use a virtual resolver or a paginated query
-    twaikId: {
+    tweekId: {
       type: String,
       optional: true,
       input: "select",
@@ -67,18 +65,19 @@ const Tweek = createModel({
       canCreate: ["guests"],
       canUpdate: ["admins"],
       relation: {
-        fieldName: "twaik",
-        typeName: "Twaik",
+        fieldName: "tweek",
+        typeName: "Tweek",
         kind: "hasOne",
       },
-    },*/
+    },
   },
 }) as VulcanGraphqlModel;
 
-export interface TweekType {
+export interface TwaikType {
   _id: string;
   createdAt: Date;
   text: string;
+  twaikId: string;
 }
 
-export default Tweek;
+export default Twaik;
