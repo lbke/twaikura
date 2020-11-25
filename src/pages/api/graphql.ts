@@ -1,14 +1,14 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 import corsOptions from "~/api/cors";
 import { ApolloServer, gql } from "apollo-server-express";
 import { makeExecutableSchema, mergeSchemas } from "graphql-tools";
 import mongoConnection from "~/api/middlewares/mongoConnection";
-import { buildApolloSchema, Connector } from "@vulcanjs/graphql";
+import { buildApolloSchema } from "@vulcanjs/graphql";
 
 import Tweek from "~/models/tweek";
-import { createMongooseConnector } from "~/api/mongoose/connector";
+import { createMongooseConnector } from "@vulcanjs/mongo";
 import Twaik from "~/models/twaik";
 
 /**
