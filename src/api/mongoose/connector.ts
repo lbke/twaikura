@@ -36,8 +36,10 @@ export const createMongooseConnector = <TModel = any>(
       const document = await MongooseModel.findOne(selector).exec();
       return document && document.toJSON();
     },
-    findOneById: async () => {
-      throw new Error("findOneById not yet implemented in Mongoose connector");
+    findOneById: async (id) => {
+      const document = await MongooseModel.findById(id).exec();
+      return document && document.toJSON();
+      //throw new Error("findOneById not yet implemented in Mongoose connector");
     },
     // TODO: not sure if this should really be part of the connector
     // because it is not dependent on the chosen database
