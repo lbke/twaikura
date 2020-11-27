@@ -1,3 +1,5 @@
+// It won't reload if there are no remount => we need to find a way to mutate on login
+// @see https://github.com/vercel/next.js/discussions/19601
 import { useEffect } from "react";
 import Router from "next/router";
 import useSWR from "swr";

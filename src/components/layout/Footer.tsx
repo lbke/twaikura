@@ -1,3 +1,6 @@
+/**
+ * TODO: the useUser hook doesn't seem to be updated on route change when the component is put into _app
+ */
 // Taken from Next Passport example
 import Link from "next/link";
 import { useUser } from "~/components/user/hooks";

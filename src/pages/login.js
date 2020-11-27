@@ -3,6 +3,7 @@ import Router from "next/router";
 import { useUser } from "../components/user/hooks";
 import Layout from "~/components/user/layout";
 import Form from "~/components/user/form";
+import { mutate } from "swr";
 
 const Login = () => {
   useUser({ redirectTo: "/", redirectIfFound: true });
@@ -26,7 +27,10 @@ const Login = () => {
         body: JSON.stringify(body),
       });
       if (res.status === 200) {
-        Router.push("/");
+        // @see https://github.com/vercel/next.js/discussions/19601
+        // This force SWR to update all queries subscribed to "api/user"
+        window.location.replace("/");
+        // Router.push("/");
       } else {
         throw new Error(await res.text());
       }
