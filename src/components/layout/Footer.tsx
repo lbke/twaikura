@@ -1,11 +1,11 @@
-import Link from 'next/link'
-import { useUser } from '../lib/hooks'
+// Taken from Next Passport example
+import Link from "next/link";
+import { useUser } from "~/components/user/hooks";
 
 const Header = () => {
-  const user = useUser()
-
+  const user = useUser();
   return (
-    <header>
+    <footer>
       <nav>
         <ul>
           <li>
@@ -55,13 +55,13 @@ const Header = () => {
           color: #fff;
           text-decoration: none;
         }
-        header {
+        footer {
           color: #fff;
           background-color: #333;
         }
       `}</style>
-    </header>
-  )
-}
+    </footer>
+  );
+};
 
-export default Header
+export default Header;
