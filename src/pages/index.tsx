@@ -1,24 +1,13 @@
-import { useState } from "react";
-import Link from "next/link";
+import { SyntheticEvent, useState, useRef } from "react";
 //import { useForm } from "react-hook-form";
 import { useMulti, useCreate, useSingle } from "@vulcanjs/react-hooks";
 
 import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import Tweek, { TweekType } from "~/models/tweek";
 import Twaik, { TwaikType } from "~/models/twaik";
+import { gql } from "@apollo/client";
 
-const HomePage = () => {
-  const {
-    data: latestTweeksData,
-    loading: loadingTweeks,
-    error: errorTweeks,
-  } = useMulti<TweekType>({
-    model: Tweek,
-    input: {
-      limit: 5,
-      sort: { createdAt: "asc" },
-    },
-  });
+const TwaikForm = () => {
   const {
     data: randomTweekData,
     loading: loadingRandomTweek,
@@ -35,10 +24,11 @@ const HomePage = () => {
   });
 
   // Form state management
+  const textInputRef = useRef<HTMLInputElement>();
   const [isCreatingTwaik, setIsCreatingTwaik] = useState(false);
   const [hasCreatedTwaik, setHasCreatedTwaik] = useState(false);
   const [hasFailedCreatingTwaik, setHasFailedCreatingTwaik] = useState(false);
-  const onTwaikCreate = async (evt) => {
+  const onTwaikCreate = async (evt: SyntheticEvent<HTMLFormElement>) => {
     try {
       evt.preventDefault();
       setIsCreatingTwaik(true);
@@ -48,57 +38,105 @@ const HomePage = () => {
       await createTwaik({
         input: { data: { text, tweekId: randomTweek._id } },
       });
+      evt.target["text"].value = "";
       setHasCreatedTwaik(true);
     } catch (e) {
       setHasFailedCreatingTwaik(true);
     } finally {
+      // focus again
       setIsCreatingTwaik(false);
+      textInputRef.current.focus();
     }
   };
-
   return (
-    <MDXMuiLayout>
-      <main>
-        <h2>Write your own Twaiku</h2>
-        {(errorRandomTweek || (!loadingRandomTweek && !randomTweek)) && (
-          <p>No tweek to complete, sorry :(</p>
+    <>
+      {(errorRandomTweek || (!loadingRandomTweek && !randomTweek)) && (
+        <p>No Tweek to complete, sorry :(</p>
+      )}
+      {loadingRandomTweek && <p>Loading a tweek...</p>}
+      {randomTweek && <p>{randomTweek.text}</p>}
+      {randomTweek && (
+        <form onSubmit={onTwaikCreate}>
+          <input ref={textInputRef} type="text" name="text" autoFocus />
+          {!isCreatingTwaik && <button type="submit">Tweek</button>}
+          {isCreatingTwaik && (
+            <button type="submit" disabled>
+              Tweeking...
+            </button>
+          )}
+          {hasCreatedTwaik && <p>Successfully Tweeked</p>}
+          {hasFailedCreatingTwaik && <p>Failed Tweeking :(</p>}
+        </form>
+      )}
+    </>
+  );
+};
+const TwaikusList = () => {
+  const {
+    data: latestTwaiksData,
+    loading: loadingTwaiks,
+    error: errorTwaiks,
+  } = useMulti<TwaikType>({
+    model: Twaik,
+    input: {
+      limit: 5,
+      sort: { createdAt: "asc" },
+    },
+    // default fragment won't include relations at this point
+    // you have to add them manually
+    fragmentName: "WithTweeks",
+    fragment: gql`
+      fragment WithTweeks on Twaik {
+        _id
+        createdAt
+        text
+        tweekId
+        tweek {
+          _id
+          text
+        }
+      }
+    `,
+  });
+  const latestTwaiks = latestTwaiksData?.twaiks?.results;
+  return (
+    <>
+      {errorTwaiks && "Error while fetching tweeks"}
+      <ul>
+        {loadingTwaiks && <p>Loading twaikus...</p>}
+        {!loadingTwaiks && !errorTwaiks && !latestTwaiks?.length && (
+          <p>No Twaikus yet :'O</p>
         )}
-        {loadingRandomTweek && <p>Loading a tweek...</p>}
-        {randomTweek && <p>{randomTweek.text}</p>}
-        {randomTweek && (
-          <form onSubmit={onTwaikCreate}>
-            <input type="text" name="text" autoFocus />
-            {!isCreatingTwaik && <button type="submit">Tweek</button>}
-            {isCreatingTwaik && (
-              <button type="submit" disabled>
-                Tweeking...
-              </button>
-            )}
-            {hasCreatedTwaik && <p>Successfully Tweeked</p>}
-            {hasFailedCreatingTwaik && <p>Failed Tweeking :(</p>}
-          </form>
-        )}
-        <h2>Latest tweeks</h2>
-        {errorTweeks && "Error while fetching tweeks"}
-        <ul>
-          {loadingTweeks && <li>Loading tweeks...</li>}
-          {latestTweeksData &&
-            latestTweeksData.tweeks.results.map((tweek) => (
-              <li key={tweek._id}>
-                {tweek.text}{" "}
-                <button>
+        {latestTwaiks &&
+          latestTwaiks.map((twaik) => (
+            <li key={twaik._id}>
+              {twaik?.tweek?.text} {twaik.text}
+              {/*<button>
                   <Link href={`/tweek/${tweek._id}`}>
                     <a>Edit</a>
                   </Link>
                 </button>
-                {/*<button
+                */}
+              {/*<button
                   onClick={() => deleteTweek({ input: { id: tweek._id } })}
                 >
                   X
                 </button>*/}
-              </li>
-            ))}
-        </ul>
+            </li>
+          ))}
+      </ul>
+    </>
+  );
+};
+
+const HomePage = () => {
+  return (
+    <MDXMuiLayout>
+      <main>
+        <h2>Write your own Twaiku</h2>
+        <TwaikForm />
+        <h2>Latest Twaikus</h2>
+        <TwaikusList />
       </main>
       <style jsx>{`
         main {
