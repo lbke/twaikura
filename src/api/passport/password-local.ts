@@ -1,5 +1,5 @@
-import Local from 'passport-local'
-import { findUser } from './user'
+import Local from "passport-local";
+import { findUser } from "~/models/user";
 
 export const localStrategy = new Local.Strategy(function (
   username,
@@ -8,9 +8,9 @@ export const localStrategy = new Local.Strategy(function (
 ) {
   findUser({ username, password })
     .then((user) => {
-      done(null, user)
+      done(null, user);
     })
     .catch((error) => {
-      done(error)
-    })
-})
+      done(error);
+    });
+});
