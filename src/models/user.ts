@@ -1,5 +1,5 @@
 import { createModel } from "@vulcanjs/model";
-// import crypto from 'crypto'
+import crypto from "crypto";
 
 import { VulcanDocument, VulcanSchema } from "@vulcanjs/schema";
 import SimpleSchema from "simpl-schema";
@@ -47,7 +47,7 @@ export async function findUserByCredentials({
   return user;
 }
 
-const guaranteeOwnership = ({ data }) => {
+const guaranteeOwnership = (data) => {
   // TODO: put _id into userId to guarantee ownership
   data.userId = data._id;
   return data;
@@ -59,7 +59,8 @@ const hashPassowrd = (password: string) => {
     .toString("hex");
   return { salt, hash };
 };
-const handlePasswordCreation = ({ data }) => {
+
+const handlePasswordCreation = (data, props) => {
   const { password } = data;
   // const user = await DB.findUser(...)
   const { hash, salt } = hashPassowrd(password);
@@ -69,7 +70,7 @@ const handlePasswordCreation = ({ data }) => {
   data.password = null;
   return data;
 };
-const handlePasswordUpdate = ({ data }) => {
+const handlePasswordUpdate = (data) => {
   const { password } = data;
   // update the hash
   if (password) {
@@ -182,8 +183,6 @@ const schema: VulcanSchema = {
     canRead: [],
     canCreate: ["guests"],
     canUpdate: ["owners"],
-    onCreate: () => null,
-    onUpdate: () => null,
   },
 };
 export const User = createModel({

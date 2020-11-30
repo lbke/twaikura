@@ -2,39 +2,69 @@ import express from "express";
 import cors from "cors";
 // import mongoose from "mongoose";
 import corsOptions from "~/api/cors";
-import { ApolloServer, gql } from "apollo-server-express";
-import { makeExecutableSchema, mergeSchemas } from "graphql-tools";
+import { ApolloServer /*, gql*/ } from "apollo-server-express";
+import { makeExecutableSchema /*, mergeSchemas*/ } from "graphql-tools";
 import mongoConnection from "~/api/middlewares/mongoConnection";
-import { buildApolloSchema } from "@vulcanjs/graphql";
+import {
+  buildApolloSchema,
+  Connector,
+  VulcanGraphqlModel,
+} from "@vulcanjs/graphql";
 
 import Tweek from "~/models/tweek";
 import { createMongooseConnector } from "@vulcanjs/mongo";
 import Twaik from "~/models/twaik";
+import { User, UserConnector } from "~/models/user";
+import { getModelConnector } from "@vulcanjs/graphql";
 
-/**
- * Example random call with mongoose
- *   public async randomTweekQuery() {
-    return (await TweekModel.aggregate([
-      // select one random value
-      {
-        $sample: { size: 1 }
-      }
-    ]).exec())[0]; // only first item here
-  }
- */
-const vulcanRawSchema = buildApolloSchema([Tweek, Twaik]);
+const models = [Tweek, Twaik];
+const vulcanRawSchema = buildApolloSchema([...models, User]);
 const vulcanSchema = makeExecutableSchema(vulcanRawSchema);
 
-/*const TweekConnector: Partial<Connector> = {
-  find: async () => [],
-  findOne: async () => ({}),
-  filter: () => ({ selector: {}, options: {}, filteredFields: [] }),
-  count: async () => 0,
-};*/
-const TweekConnector = createMongooseConnector(Tweek);
-const TwaikConnector = createMongooseConnector(Twaik);
+/**
+ * Expected shape of the context
+ * {
+ *    "Foo": {
+ *      model: Foo,
+ *      connector: FooConnector
+ *    }
+ * }
+ */
+interface GraphqlModelContext {
+  [typeName: string]: { model: VulcanGraphqlModel; connector: Connector };
+}
+/**
+ * Build a default graphql context for a list of models
+ * @param models
+ */
+const createContextForModels = (
+  models: Array<VulcanGraphqlModel>
+): GraphqlModelContext => {
+  return models.reduce(
+    (context, model: VulcanGraphqlModel) => ({
+      ...context,
+      [model.name]: {
+        model,
+        connector: createMongooseConnector(model),
+      },
+    }),
+    {}
+  );
+};
 
+export const context = {
+  ...createContextForModels(models),
+  // add some custom context here
+  [User.graphql.typeName]: {
+    model: User,
+    connector: UserConnector, // we use the premade connector
+  },
+};
+
+// Seeding, using the context
+const TweekConnector = getModelConnector(context, Tweek);
 // TODO: find best practices to seed in a serverless context
+// maybe define a "seed" callaback at the model level?
 const seedTweeks = async () => {
   const count = await TweekConnector.count({});
   if (count === 0) {
@@ -50,16 +80,6 @@ const seedTweeks = async () => {
 };
 seedTweeks();
 
-const context = {
-  Tweek: {
-    model: Tweek,
-    connector: TweekConnector,
-  },
-  Twaik: {
-    model: Twaik,
-    connector: TwaikConnector,
-  },
-};
 /**
  * Sample Apollo server
  */
