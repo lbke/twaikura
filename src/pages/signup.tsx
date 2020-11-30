@@ -2,7 +2,7 @@ import { useState } from "react";
 import Router from "next/router";
 import { useUser } from "~/components/user/hooks";
 import Layout from "~/components/user/layout";
-import Form from "~/components/user/user/form";
+import UserForm from "~/components/user/form";
 
 const Signup = () => {
   useUser({ redirectTo: "/", redirectIfFound: true });
@@ -44,7 +44,11 @@ const Signup = () => {
   return (
     <Layout>
       <div className="login">
-        <Form isLogin={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <UserForm
+          isLogin={false}
+          errorMessage={errorMsg}
+          onSubmit={handleSubmit}
+        />
       </div>
       <style jsx>{`
         .login {

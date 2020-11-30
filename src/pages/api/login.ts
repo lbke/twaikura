@@ -3,8 +3,9 @@ import nextConnect from "next-connect";
 import { localStrategy } from "~/api/passport/password-local";
 import { encryptSession } from "~/api/passport/iron";
 import { setTokenCookie } from "~/api/passport/auth-cookies";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const authenticate = (method, req, res) =>
+const authenticate = (method, req, res): Promise<any> =>
   new Promise((resolve, reject) => {
     passport.authenticate(method, { session: false }, (error, token) => {
       if (error) {
@@ -17,7 +18,9 @@ const authenticate = (method, req, res) =>
 
 passport.use(localStrategy);
 
-export default nextConnect()
+// NOTE: adding NextApiRequest, NextApiResponse is required to get the right typings in next-connect
+// this is the normal behaviour
+export default nextConnect<NextApiRequest, NextApiResponse>()
   .use(passport.initialize())
   .post(async (req, res) => {
     try {

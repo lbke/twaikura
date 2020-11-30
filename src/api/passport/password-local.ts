@@ -1,14 +1,19 @@
+//@see http://www.passportjs.org/packages/passport-local/
 import Local from "passport-local";
-import { findUser } from "~/models/user";
+import { findUserByCredentials } from "~/models/user";
 
 export const localStrategy = new Local.Strategy(function (
-  username,
+  email,
   password,
   done
 ) {
-  findUser({ username, password })
+  findUserByCredentials({ email, password })
     .then((user) => {
-      done(null, user);
+      if (!user) {
+        done(new Error("Email/password not matching"));
+      } else {
+        done(null, user);
+      }
     })
     .catch((error) => {
       done(error);

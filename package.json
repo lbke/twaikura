@@ -66,6 +66,7 @@
     "cookie": "^0.4.1",
     "cors": "^2.8.5",
     "cross-env": "7.0.2",
+    "crypto": "^1.0.1",
     "debug": "4.1.1",
     "express": "4.17.1",
     "graphql": "15.4.0",
