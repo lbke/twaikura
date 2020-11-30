@@ -15,7 +15,7 @@ import Tweek from "~/models/tweek";
 import { createMongooseConnector } from "@vulcanjs/mongo";
 import Twaik from "~/models/twaik";
 import { User, UserConnector } from "~/models/user";
-import { getModelConnector } from "@vulcanjs/graphql";
+import seed from "~/api/seed";
 
 const models = [Tweek, Twaik];
 const vulcanRawSchema = buildApolloSchema([...models, User]);
@@ -52,6 +52,7 @@ const createContextForModels = (
   );
 };
 
+// TODO: isolate context creation code like we do in Vulcan + initialize the currentUser too
 export const context = {
   ...createContextForModels(models),
   // add some custom context here
@@ -61,24 +62,7 @@ export const context = {
   },
 };
 
-// Seeding, using the context
-const TweekConnector = getModelConnector(context, Tweek);
-// TODO: find best practices to seed in a serverless context
-// maybe define a "seed" callaback at the model level?
-const seedTweeks = async () => {
-  const count = await TweekConnector.count({});
-  if (count === 0) {
-    console.log("No Tweeks found, seeding one");
-    try {
-      await TweekConnector.create({ text: "Hello world," });
-    } catch (error) {
-      console.error("Could not seed tweeks", error);
-    }
-  } else {
-    console.log(`Found ${count} Tweek(s) in the database, no need to seed.`);
-  }
-};
-seedTweeks();
+seed(context);
 
 /**
  * Sample Apollo server

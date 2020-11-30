@@ -4,6 +4,8 @@ import crypto from "crypto";
 import { VulcanDocument, VulcanSchema } from "@vulcanjs/schema";
 import SimpleSchema from "simpl-schema";
 import {
+  buildDefaultMutationResolvers,
+  buildDefaultQueryResolvers,
   extendModel as extendGraphqlModel,
   VulcanGraphqlModel,
 } from "@vulcanjs/graphql";
@@ -200,9 +202,19 @@ export const User = createModel({
           before: [handlePasswordUpdate],
         },
       },
+      queryResolvers: buildDefaultQueryResolvers({ typeName: "VulcanUser" }),
+      mutationResolvers: buildDefaultMutationResolvers({
+        typeName: "VulcanUser",
+      }),
     }),
   ],
   schema,
+  permissions: {
+    canCreate: ["guests"], // signup is enabled
+    canUpdate: ["owners", "admins"],
+    canDelete: ["owenrs", "admins"],
+    canRead: ["members", "admins"],
+  },
 }) as VulcanGraphqlModel;
 
 export const UserConnector = createMongooseConnector<UserType>(User);
