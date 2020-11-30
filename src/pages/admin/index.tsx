@@ -27,8 +27,8 @@ const AdminPage = () => {
       </ul>
       <h2>Users</h2>
       <ul>
-        {users.map(({ _id, text }) => (
-          <li key={_id}>{text}</li>
+        {users.map(({ _id, email }) => (
+          <li key={_id}>{email}</li>
         ))}
       </ul>
     </div>

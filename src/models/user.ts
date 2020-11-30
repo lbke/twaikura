@@ -11,7 +11,7 @@ import {
 } from "@vulcanjs/graphql";
 import { createMongooseConnector } from "@vulcanjs/mongo";
 
-interface UserType extends VulcanDocument {
+export interface UserType extends VulcanDocument {
   email: string;
   hash?: string;
   salt?: string;
