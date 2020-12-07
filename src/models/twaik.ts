@@ -1,6 +1,5 @@
-import { createModel } from "@vulcanjs/model";
 import {
-  extendModel as extendModelWithGraphql,
+  createGraphqlModel,
   VulcanGraphqlModel,
   buildDefaultQueryResolvers,
   buildDefaultMutationResolvers,
@@ -8,16 +7,15 @@ import {
 
 const typeName = "Twaik";
 const multiTypeName = "Twaiks";
-const Twaik = createModel({
+const Twaik = createGraphqlModel({
   name: typeName,
-  extensions: [
-    extendModelWithGraphql({
-      typeName, // TODO: automatically create from a modelName property
-      multiTypeName,
-      queryResolvers: buildDefaultQueryResolvers({ typeName }),
-      mutationResolvers: buildDefaultMutationResolvers({ typeName }),
-    }),
-  ],
+  graphql: {
+    typeName, // TODO: automatically create from a modelName property
+    multiTypeName,
+    queryResolvers: buildDefaultQueryResolvers({ typeName }),
+    mutationResolvers: buildDefaultMutationResolvers({ typeName }),
+  },
+
   permissions: {
     canRead: ["guests"],
     canCreate: ["guests"],

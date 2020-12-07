@@ -65,6 +65,7 @@ const userContextFromReq = async (
   req: Request | NextApiRequest
 ): Promise<UserContext> => {
   const session = await getSession(req);
+  if (!session) return {};
   // Refetch the user from db in order to get the freshest data
   const user = await UserConnector.findOneById(session._id);
   if (user) {

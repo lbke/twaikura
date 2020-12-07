@@ -1,22 +1,20 @@
-import { createModel } from "@vulcanjs/model";
 import {
   extendModel as extendModelWithGraphql,
   VulcanGraphqlModel,
   buildDefaultQueryResolvers,
   buildDefaultMutationResolvers,
+  createGraphqlModel,
 } from "@vulcanjs/graphql";
 
 const typeName = "Tweek";
-const Tweek = createModel({
+const Tweek = createGraphqlModel({
   name: "Tweek",
-  extensions: [
-    extendModelWithGraphql({
-      typeName, // TODO: automatically create from a modelName property
-      multiTypeName: "Tweeks",
-      queryResolvers: buildDefaultQueryResolvers({ typeName }),
-      mutationResolvers: buildDefaultMutationResolvers({ typeName }),
-    }),
-  ],
+  graphql: {
+    typeName, // TODO: automatically create from a modelName property
+    multiTypeName: "Tweeks",
+    queryResolvers: buildDefaultQueryResolvers({ typeName }),
+    mutationResolvers: buildDefaultMutationResolvers({ typeName }),
+  },
   permissions: {
     canRead: ["guests"],
   },

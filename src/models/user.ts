@@ -1,4 +1,3 @@
-import { createModel } from "@vulcanjs/model";
 import crypto from "crypto";
 
 import { VulcanDocument, VulcanSchema } from "@vulcanjs/schema";
@@ -6,7 +5,7 @@ import SimpleSchema from "simpl-schema";
 import {
   buildDefaultMutationResolvers,
   buildDefaultQueryResolvers,
-  extendModel as extendGraphqlModel,
+  createGraphqlModel,
   VulcanGraphqlModel,
 } from "@vulcanjs/graphql";
 import { createMongooseConnector } from "@vulcanjs/mongo";
@@ -187,27 +186,25 @@ const schema: VulcanSchema = {
     canUpdate: ["owners"],
   },
 };
-export const User = createModel({
+export const User = createGraphqlModel({
   name: "VulcanUser",
-  extensions: [
-    extendGraphqlModel({
-      typeName: "VulcanUser", // TODO: automatically create from a modelName property
-      multiTypeName: "VulcanUsers",
-      callbacks: {
-        create: {
-          before: [handlePasswordCreation],
-          after: [guaranteeOwnership],
-        },
-        update: {
-          before: [handlePasswordUpdate],
-        },
+  graphql: {
+    typeName: "VulcanUser", // TODO: automatically create from a modelName property
+    multiTypeName: "VulcanUsers",
+    callbacks: {
+      create: {
+        before: [handlePasswordCreation],
+        after: [guaranteeOwnership],
       },
-      queryResolvers: buildDefaultQueryResolvers({ typeName: "VulcanUser" }),
-      mutationResolvers: buildDefaultMutationResolvers({
-        typeName: "VulcanUser",
-      }),
+      update: {
+        before: [handlePasswordUpdate],
+      },
+    },
+    queryResolvers: buildDefaultQueryResolvers({ typeName: "VulcanUser" }),
+    mutationResolvers: buildDefaultMutationResolvers({
+      typeName: "VulcanUser",
     }),
-  ],
+  },
   schema,
   permissions: {
     canCreate: ["guests"], // signup is enabled
