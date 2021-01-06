@@ -3797,69 +3797,69 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@vulcanjs/demo@^0.1.6-alpha.2":
+"@vulcanjs/demo@latest":
   version "0.1.6-alpha.2"
   resolved "https://registry.yarnpkg.com/@vulcanjs/demo/-/demo-0.1.6-alpha.2.tgz#62038d10602485136d8b62202e1d3a40af66f0fb"
   integrity sha512-tvh5R3t451j+2BQaC+0mQsrqq32KWdKeerHhkmZuyTjbVT1HTgq/xHGti+cdeufOvaYhRlTMWUenNWJyw0tiqg==
 
-"@vulcanjs/graphql@^0.1.6-alpha.3", "@vulcanjs/graphql@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@vulcanjs/graphql/-/graphql-0.1.7.tgz#56da5b4bdf9c9c704e3e4810d9d4d3812ddfad8a"
-  integrity sha512-dnnipZUQbFbxAH2zzSkjuOcT1Xdh6ek/SRCJI3oIMEgZm9UPYNx+C8oNzV+qAjbup5K/1Gv6Vo6xZY5EyMNdVg==
+"@vulcanjs/graphql@^0.1.8", "@vulcanjs/graphql@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/graphql/-/graphql-0.1.8.tgz#1c5922cf17a04850b778c1a93521b233995c1107"
+  integrity sha512-aNJntItpdqw+5uCL+XeHD1bv+EoDDJFG/5NdTM/AQmDZ/qVQWMS7SFyq1g6CBTn/gL56Cl9VOFkSKM7a9B5i1g==
   dependencies:
-    "@vulcanjs/model" "^0.1.6-alpha.2"
-    "@vulcanjs/schema" "^0.1.7"
+    "@vulcanjs/model" "^0.1.8"
+    "@vulcanjs/schema" "^0.1.8"
     "@vulcanjs/utils" "^0.1.7"
     apollo-server "^2.18.2"
     graphql-date "^1.0.3"
     graphql-type-json "^0.3.2"
     simpl-schema "^1.10.2"
 
-"@vulcanjs/mdx@^0.1.6-alpha.2":
+"@vulcanjs/mdx@latest":
   version "0.1.6-alpha.2"
   resolved "https://registry.yarnpkg.com/@vulcanjs/mdx/-/mdx-0.1.6-alpha.2.tgz#77b6de380217f983daa8a10639df2fe7cc215b2b"
   integrity sha512-+MayLlNM1L1W6Kai6St8qBMaQw/bK079G23k9ML5xrMq21SLi3B/zqcaCwQaWEbMxNPkqYMf8FbbC34HZjobOA==
 
-"@vulcanjs/meteor-legacy@^0.1.6-alpha.3":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@vulcanjs/meteor-legacy/-/meteor-legacy-0.1.7.tgz#2a6ae2b588ed7f6de1ae30993814ad311cdf7f14"
-  integrity sha512-iOcuuD11TIyByAyr+ISReU9wQkYCnFQAdcCdeUkeV8iKVawfyQ49XcjiKNC8Gqo6LsKrvbfJThI1sG83S/0c/Q==
+"@vulcanjs/meteor-legacy@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/meteor-legacy/-/meteor-legacy-0.1.8.tgz#cac8732a8485c06857bdbee41b7207453fe2add2"
+  integrity sha512-YNADOeXEJ5Rq6sN8JNvRYACIFNVSU+IonIG/+UF9NA0Wr17kgrJvZj1lva7eSJVrbhYilI7mLyLZAx5WVxtm2Q==
   dependencies:
-    "@vulcanjs/graphql" "^0.1.7"
-    "@vulcanjs/model" "^0.1.6-alpha.2"
+    "@vulcanjs/graphql" "^0.1.8"
+    "@vulcanjs/model" "^0.1.8"
 
-"@vulcanjs/model@^0.1.6-alpha.2":
-  version "0.1.6-alpha.2"
-  resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.1.6-alpha.2.tgz#89fcb1896dbb5088b55eb84030e3ba1cffa0cbda"
-  integrity sha512-04ibIirXF4fzPBGx1S66H39qN0flqGwnlqKpjD5vFR9UhTOWQ2GUAWbE4YTC0pbbAJKBbLLAC6ESTbcRHAOcGQ==
+"@vulcanjs/model@^0.1.8", "@vulcanjs/model@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.1.8.tgz#9c6bc9367290a7ca123101c7b43d38d1e637e04c"
+  integrity sha512-vtUHuzpv5TgOD108tYpON/hVSUMOVykpVbTFIk0Jgv2WfHVYqvHfJCUmtzECmJ9tGTnxcvqGL5T32y6M6+piMA==
   dependencies:
     moment-timezone "^0.5.31"
     simpl-schema "^1.10.1"
 
-"@vulcanjs/mongo@^0.1.6-alpha.3":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@vulcanjs/mongo/-/mongo-0.1.7.tgz#be0dfb33dc04aac59ad11aa97be13009eed832c8"
-  integrity sha512-ApZjX2J2dr46pwWsEXquiK95lTVBB2skoodSzTK7HJSMICB/LOzoJGVEiXVmnTGqe6aikR5xedjR59vMXvIUZA==
+"@vulcanjs/mongo@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/mongo/-/mongo-0.1.8.tgz#fea71f64d7fbce9e04c3631e3a251186f27a1144"
+  integrity sha512-QpAr2l6gTg4poUd8zcZ5RSOukCKHp0FyuIlAO5vwpEvAb7AWdps3SodYpmoW/NmnJa+Io4IB7qF9Ol+2rJOSMw==
   dependencies:
-    "@vulcanjs/graphql" "^0.1.7"
-    "@vulcanjs/model" "^0.1.6-alpha.2"
+    "@vulcanjs/graphql" "^0.1.8"
+    "@vulcanjs/model" "^0.1.8"
     "@vulcanjs/utils" "^0.1.7"
     lodash "^4.17.20"
 
-"@vulcanjs/react-hooks@^0.1.6-alpha.3":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@vulcanjs/react-hooks/-/react-hooks-0.1.7.tgz#c4297c30181a12ef74d46d6c5fc9fc3cfdd5abda"
-  integrity sha512-fpr2YN6RBYn4fe8Im61qRb/E3LxJavr1KtPX9/P/JnLtyDf571L9mJLrhYEbEXFtR+f3uQLYbVhdv9rVghoffw==
+"@vulcanjs/react-hooks@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/react-hooks/-/react-hooks-0.1.8.tgz#2d057aed06faadc74523396ee65f7cb3a04e33e6"
+  integrity sha512-/qKX1HgWhPr2BLYJNAL60ctvVuA6l0lot0+dI+1s2lwxfnLEex/54VMio2HtLzOx4a5IDdUm3OFO8LAl3AASIg==
   dependencies:
-    "@vulcanjs/graphql" "^0.1.7"
+    "@vulcanjs/graphql" "^0.1.8"
     graphql-tag "^2.11.0"
     lodash "^4.17.20"
     mingo "^3.0.6"
 
-"@vulcanjs/schema@^0.1.6-alpha.2", "@vulcanjs/schema@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@vulcanjs/schema/-/schema-0.1.7.tgz#8bd32c1e5f964d5817314962a2c80f3eb2dbc0cf"
-  integrity sha512-bCtLiHLk8bPunm+PRO2o19zA4HR8JPZYV/ylXB6wCKveNfPPRzQA7nKuOxhMIkZAuVaJ/Wfab4oyiVQMEMACkg==
+"@vulcanjs/schema@^0.1.8", "@vulcanjs/schema@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/schema/-/schema-0.1.8.tgz#54428caa85fa27dac82a8ac4aa23fdb9a66b2472"
+  integrity sha512-mcxVZC51PZb0TAhutWr41UzU9pihcKHc1zq7qk4/VR/n9fGZxgl/BoMf3SN1+5u3cAQjyKV+z+5qjKQZoDfx+Q==
 
 "@vulcanjs/utils@^0.1.7":
   version "0.1.7"
