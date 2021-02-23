@@ -17,6 +17,11 @@ rm -Rf node_modules && yarn install # no missing module surprise
 ## Run the app, run tests
 
 ```sh
+# Run mongo in a separate shell
+yarn run start:mongo
+```
+
+```sh
 
 ### Test process
 # Fix any problem that occur during those tests
@@ -36,7 +41,7 @@ yarn run build:static && yarn run start:static
 # Run tests
 yarn run test
 # Run tests specific to Vulcan Next (longer)
-yarn run test:vns
+yarn run test:vn
 # Test storybook
 yarn run storybook
 # Test storybook static build
@@ -56,6 +61,7 @@ npm version patch # patch or minor or major depending on the situation
 # yarn version --new-version <level>  # command for yarn v1
 # yarn version patch # works only with yarn v2 @see https://github.com/yarnpkg/yarn/issues/5367
 yarn run auto-changelog # update changelog
+git commit -am "bump version"
 ```
 
 ## Deploy

@@ -26,11 +26,7 @@ seed(contextBase);
 /*
 const typeDefs = gql`
   type Query {
-    users: [User!]!
     restaurants: [Restaurant]
-  }
-  type User {
-    name: String
   }
   type Restaurant {
     _id: ID!
@@ -39,9 +35,6 @@ const typeDefs = gql`
 `;
 const resolvers = {
   Query: {
-    users() {
-      return [{ name: "Rick" }, { name: "Morty" }];
-    },
     // Demo with mongoose
     // Expected the database to be setup with the demo "restaurant" API from mongoose
     async restaurants() {
@@ -58,7 +51,32 @@ const resolvers = {
     },
   },
 };
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const customSchema = makeExecutableSchema({ typeDefs, resolvers });
+// NOTE: schema stitching can cause a bad developer experience with errors
+const mergedSchema = mergeSchemas({ schemas: [vulcanSchema, customSchema] });
+
+// Seed
+// TODO: what is the best pattern to seed in a serverless context?
+// We pass the default graphql context to the seed function,
+// so it can access our models
+seedDatabase(contextBase);
+// also seed restaurant manually to demo a custom server
+const seedRestaurants = async () => {
+  const db = mongoose.connection;
+  const count = await db.collection("restaurants").countDocuments();
+  if (count === 0) {
+    db.collection("restaurants").insertMany([
+      {
+        name: "The Restaurant at the End of the Universe",
+      },
+      { name: "The Last Supper" },
+      { name: "Shoney's" },
+      { name: "Big Bang Burger" },
+      { name: "Fancy Eats" },
+    ]);
+  }
+};
+seedRestaurants();
 
 */
 

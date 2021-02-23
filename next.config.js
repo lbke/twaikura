@@ -27,6 +27,7 @@ const withPkgInfo = (nextConfig = {}) => {
   const publicPkgInfo = {
     version: packageJSON.version,
   };
+  if (!nextConfig.publicRuntimeConfig) nextConfig.publicRuntimeConfig = {};
   nextConfig.publicRuntimeConfig.pkgInfo = publicPkgInfo;
   // Also enhance environment with the same infos
   Object.entries(publicPkgInfo).map(([key, value]) => {
@@ -58,9 +59,14 @@ module.exports = (phase, { defaultConfig }) => {
   let extendedConfig;
   extendedConfig = extendNextConfig(defaultConfig);
 
-  extendedConfig.env = {};
-  extendedConfig.serverRuntimeConfig = {};
-  extendedConfig.publicRuntimeConfig = {};
+  extendedConfig.env = {
+    NEXT_PUBLIC_IS_USING_DEMO_DATABASE: !!(process.env.MONGO_URI || "").match(
+      /lbke\-demo/
+    ),
+    NEXT_PUBLIC_IS_USING_LOCAL_DATABSE: !!(process.env.MONGO_URI || "").match(
+      /localhost/
+    ),
+  };
 
   // Enable Webpack analyzer
   if (process.env.ANALYZE && process.env.ANALYZE !== "false") {

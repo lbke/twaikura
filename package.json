@@ -1,11 +1,13 @@
 {
   "name": "vulcan-next-starter",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "next",
+    "debug": "NODE_OPTIONS='--inspect' next",
     "build": "next build",
     "start": "next start",
+    "postbuild": "next-sitemap --config vulcan-next-sitemap.js",
     "test": "npm run test:unit && npm run test:e2e",
     "clean": "rm -Rf ./dist # clean various build folders",
     "postinstall": "",
@@ -118,6 +120,7 @@
     "shelljs": "^0.8.4",
     "simpl-schema": "^1.9.0",
     "source-map-support": "^0.5.19",
+    "storybook-css-modules-preset": "^1.0.5",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.0"
@@ -149,6 +152,7 @@
     "jest-transformer-mdx": "^2.2.0",
     "nyc": "^15.1.0",
     "serve": "^11.3.2",
+    "shelljs": "^0.8.4",
     "start-server-and-test": "^1.11.0"
   }
 }
