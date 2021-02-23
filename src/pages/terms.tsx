@@ -1,0 +1,2 @@
+const Terms = () => {};
+return Terms;
