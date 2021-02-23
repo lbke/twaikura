@@ -84,6 +84,7 @@
     "next-connect": "^0.9.1",
     "next-i18next": "^5.1.0",
     "next-mdx-enhanced": "^4.0.0",
+    "next-sitemap": "^1.5.8",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "polished": "^3.6.5",
