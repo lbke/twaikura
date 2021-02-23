@@ -19,6 +19,8 @@ const Twaik = createGraphqlModel({
   permissions: {
     canRead: ["guests"],
     canCreate: ["guests"],
+    canUpdate: ["admins"],
+    canDelete: ["admins"],
   },
   schema: {
     _id: {

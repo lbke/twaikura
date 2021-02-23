@@ -4,6 +4,7 @@
 // Taken from Next Passport example
 import Link from "next/link";
 import { useUser } from "~/components/user/hooks";
+import { routes } from "~/lib/routes";
 
 const Header = () => {
   const user = useUser();
@@ -12,12 +13,17 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <Link href="/">
-              <a>Home</a>
+            <Link href={routes.home.href}>
+              <a>Twaikura</a>
             </Link>
           </li>
           {user ? (
             <>
+              <li>
+                <Link href={routes.moderation.href}>
+                  <a>Moderation</a>
+                </Link>
+              </li>
               <li>
                 <Link href="/profile">
                   <a>Profile</a>
@@ -34,6 +40,11 @@ const Header = () => {
               </Link>
             </li>
           )}
+          <li>
+            <Link href={routes.terms.href}>
+              <a>Terms</a>
+            </Link>
+          </li>
         </ul>
       </nav>
       <style jsx>{`

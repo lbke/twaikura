@@ -1,5 +1,4 @@
 import {
-  extendModel as extendModelWithGraphql,
   VulcanGraphqlModel,
   buildDefaultQueryResolvers,
   buildDefaultMutationResolvers,
@@ -17,6 +16,9 @@ const Tweek = createGraphqlModel({
   },
   permissions: {
     canRead: ["guests"],
+    canCreate: ["admins"],
+    canUpdate: ["admins"],
+    canDelete: ["admins"],
   },
   schema: {
     _id: {

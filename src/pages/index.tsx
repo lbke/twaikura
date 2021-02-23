@@ -57,7 +57,13 @@ const TwaikForm = () => {
       {randomTweek && <p>{randomTweek.text}</p>}
       {randomTweek && (
         <form onSubmit={onTwaikCreate}>
-          <input ref={textInputRef} type="text" name="text" autoFocus />
+          <input
+            ref={textInputRef}
+            type="text"
+            name="text"
+            autoFocus
+            maxLength={120}
+          />
           {!isCreatingTwaik && <button type="submit">Tweek</button>}
           {isCreatingTwaik && (
             <button type="submit" disabled>
