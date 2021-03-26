@@ -1,13 +1,25 @@
+/**
+ * Second half of a Twaiky,
+ * created by the community
+ */
 import {
   createGraphqlModel,
   VulcanGraphqlModel,
   buildDefaultQueryResolvers,
   buildDefaultMutationResolvers,
 } from "@vulcanjs/graphql";
+import { CanReadFunction } from "@vulcanjs/model";
 import { TweekType } from "./tweek";
 
 const typeName = "Twaik";
 const multiTypeName = "Twaiks";
+
+const canReadTwaik: CanReadFunction = ({ user, document }) => {
+  const twaik = document as TwaikType; // TODO: should be typed already using a generic
+  if (user) return true;
+  if (twaik?.isValid) return true;
+  return false;
+};
 const Twaik = createGraphqlModel({
   name: typeName,
   graphql: {
@@ -18,7 +30,7 @@ const Twaik = createGraphqlModel({
   },
 
   permissions: {
-    canRead: ["guests"],
+    canRead: canReadTwaik,
     canCreate: ["guests"],
     canUpdate: ["admins"],
     canDelete: ["admins"],
@@ -72,6 +84,14 @@ const Twaik = createGraphqlModel({
         kind: "hasOne",
       },
     },
+    isValid: {
+      type: Boolean,
+      optional: true,
+      input: "checkbox",
+      canRead: ["guests"],
+      canCreate: ["guests"],
+      canUpdate: ["admins"],
+    },
   },
 }) as VulcanGraphqlModel;
 
@@ -81,6 +101,7 @@ export interface TwaikType {
   text: string;
   twaikId: string;
   tweek?: TweekType;
+  isValid?: boolean;
 }
 
 export default Twaik;

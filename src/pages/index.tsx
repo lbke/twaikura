@@ -5,7 +5,6 @@ import { useMulti, useCreate, useSingle } from "@vulcanjs/react-hooks";
 import Tweek, { TweekType } from "~/models/tweek";
 import Twaik, { TwaikType } from "~/models/twaik";
 import { gql } from "@apollo/client";
-import { muiMdComponents } from "~/components/layout/muiMdComponents";
 import { PageLayout } from "~/components/layout";
 
 const TwaikForm = () => {
@@ -142,9 +141,7 @@ const TwaikusList = () => {
   );
 };
 
-// inject both the custom components + default components like h1, p, etc.
-const components = { ...muiMdComponents };
-const HomePage = ({ source }) => {
+const HomePage = () => {
   return (
     <PageLayout>
       <main>

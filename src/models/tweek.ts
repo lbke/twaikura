@@ -1,3 +1,7 @@
+/**
+ * First part of a Twaiku
+ * Created by admins
+ */
 import {
   VulcanGraphqlModel,
   buildDefaultQueryResolvers,
