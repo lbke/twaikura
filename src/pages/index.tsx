@@ -86,7 +86,7 @@ const useLatestTwaiks = () =>
     model: Twaik,
     input: {
       limit: 5,
-      sort: { createdAt: "asc" },
+      sort: { createdAt: "desc" },
     },
     // default fragment won't include relations at this point
     // you have to add them manually (like "tweek" here)
