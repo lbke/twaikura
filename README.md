@@ -4,7 +4,7 @@ Vulcan Next helps you build GraphQL-based applications with Next.js.
 
 ![vulcan-next-starter banner](https://raw.githubusercontent.com/VulcanJS/vulcan-next-starter/devel/public/img/vn-logo-full-1280-640.png)
 
-[Check the features](https://github.com/VulcanJS/vulcan-next-starter/tree/devel/src/pages/docs/features.md)
+[Check the features](https://github.com/VulcanJS/vulcan-next-starter/tree/devel/src/content/docs/features.md)
 
 [Read the introductory article](https://www.freecodecamp.org/news/how-to-replace-meteor-by-next-introducing-vulcan-next-starter/)
 
@@ -21,9 +21,22 @@ You can then access the live docs on [http://localhost:3000/docs](http://localho
 
 ### Setup your own git
 
-```
+#### Initialization
+```sh
 # Rename "origin" to "upstream", so you can use your own git repository as the main origin and VN official repo as "upstream"
 git remote rename origin upstream
+```
+
+#### Update
+
+You can update your Vulcan Next install. Beware: Vulcan Next is a boilerplate, the possibility to update automatically is not guaranteed. You may
+have to apply the updates by hand, comparing Vulcan Next latest version to your own code.
+
+```sh
+# Get the latest version of Vulcan Next locally
+git fetch upstream
+# Merge to your own code (favouring your own code as a default in case of conflict)
+git merge -X ours
 ```
 
 ### Roll your own Mongo database

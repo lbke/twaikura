@@ -3,7 +3,10 @@ import { Link } from "@vulcanjs/next-material-ui"; // "next/link";
 import { listMdxFiles } from "@vulcanjs/mdx";
 import { List, ListItem, Typography } from "@material-ui/core";
 
-const DocIndex = ({ pages = [] }) => (
+export interface DocIndexProps {
+  pages: Array<string>;
+}
+const DocIndex = ({ pages = [] }: DocIndexProps) => (
   <div style={{ margin: "32px auto", maxWidth: "1000px" }}>
     <Typography variant="h1">
       <img src="/img/vns-logo-96.png" style={{ marginRight: "32px" }} />
@@ -37,7 +40,7 @@ export const getStaticProps = async () => {
   // we suppose that the page name is always the file name without extension (no frontmatter URL customization)
   // NOTE: if frontMatter is needed, an alternative would be using https://github.com/jescalan/babel-plugin-import-glob-array
   // to import all frontMatters
-  const docsDir = path.resolve("./src/pages/docs"); // relative to the project root
+  const docsDir = path.resolve("./src/content/docs"); // relative to the project root
   const files = await listMdxFiles({ dir: docsDir });
   const pageNames = files.map((f) =>
     f.fileName.split(".").slice(0, -1).join(".")
