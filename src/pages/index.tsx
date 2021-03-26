@@ -2,10 +2,11 @@ import { SyntheticEvent, useState, useRef } from "react";
 //import { useForm } from "react-hook-form";
 import { useMulti, useCreate, useSingle } from "@vulcanjs/react-hooks";
 
-import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import Tweek, { TweekType } from "~/models/tweek";
 import Twaik, { TwaikType } from "~/models/twaik";
 import { gql } from "@apollo/client";
+import { muiMdComponents } from "~/components/layout/muiMdComponents";
+import { PageLayout } from "~/components/layout";
 
 const TwaikForm = () => {
   const {
@@ -24,7 +25,7 @@ const TwaikForm = () => {
   });
 
   // Form state management
-  const textInputRef = useRef<HTMLInputElement>();
+  const textInputRef = useRef<HTMLInputElement>(null);
   const [isCreatingTwaik, setIsCreatingTwaik] = useState(false);
   const [hasCreatedTwaik, setHasCreatedTwaik] = useState(false);
   const [hasFailedCreatingTwaik, setHasFailedCreatingTwaik] = useState(false);
@@ -45,7 +46,7 @@ const TwaikForm = () => {
     } finally {
       // focus again
       setIsCreatingTwaik(false);
-      textInputRef.current.focus();
+      textInputRef?.current?.focus();
     }
   };
   return (
@@ -110,7 +111,7 @@ const TwaikusList = () => {
     loading: loadingTwaiks,
     error: errorTwaiks,
   } = useLatestTwaiks();
-  const latestTwaiks = latestTwaiksData.twaiks.results;
+  const latestTwaiks = latestTwaiksData?.twaiks.results;
   return (
     <>
       {errorTwaiks && "Error while fetching tweeks"}
@@ -144,9 +145,6 @@ const TwaikusList = () => {
 // inject both the custom components + default components like h1, p, etc.
 const components = { ...muiMdComponents };
 const HomePage = ({ source }) => {
-  const readMeContent = hydrate(source, {
-    components,
-  }); //, { components });
   return (
     <PageLayout>
       <main>
@@ -167,14 +165,5 @@ const HomePage = ({ source }) => {
     </PageLayout>
   );
 };
-
-export async function getStaticProps() {
-  const filePath = path.resolve("./README.md");
-  const source = await fsPromises.readFile(filePath, { encoding: "utf8" });
-  // MDX text - can be from a local file, database, anywhere
-  // Does a server-render of the source and relevant React wrappers + allow to inject React components
-  const mdxSource = await renderToString(source, { components });
-  return { props: { source: mdxSource } };
-}
 
 export default HomePage;

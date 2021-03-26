@@ -1,5 +1,4 @@
 declare module "simpl-schema" {
-  //import { Mongo } from "meteor/mongo";
   // Type definitions for simpl-schema
 
   type Integer = RegExp;
@@ -106,7 +105,7 @@ declare module "simpl-schema" {
     [key: string]: any;
   }
 
-  interface EvaluatedSchemaDefinition {
+  export interface EvaluatedSchemaDefinition {
     type: ArrayLike<{ type: SchemaType }>;
     label?: string;
     optional?: boolean;
@@ -133,6 +132,7 @@ declare module "simpl-schema" {
     clean?: boolean;
     filter?: boolean;
     upsertextendedCustomContext?: boolean;
+    extendedCustomContext: any;
   }
 
   interface SimpleSchemaValidationContext {
@@ -153,6 +153,8 @@ declare module "simpl-schema" {
     keyErrorMessage(name: any): string;
 
     getErrorObject(): any;
+
+    validationErrors(): Array<{ type?: string; name?: string }>;
   }
 
   class ValidationContext {
@@ -227,11 +229,9 @@ declare module "simpl-schema" {
     affectsGenericKeyImplicit(key: string): any;
   }
 
-  /*
   interface MongoObject {
     expandKey(val: any, key: string, obj: any): void;
   }
-  */
 
   class SimpleSchema {
     static Integer: Integer;
@@ -249,6 +249,9 @@ declare module "simpl-schema" {
       Phone: RegExp;
     };
     debug: boolean;
+
+    // TODO: improve this typing
+    _schema: any;
 
     constructor(
       schema: { [key: string]: SchemaDefinition<any> | SchemaType } | any[],

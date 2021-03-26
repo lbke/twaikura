@@ -1,9 +1,9 @@
 //import { useForm } from "react-hook-form";
-import MDXMuiLayout from "~/components/layout/MDXMuiLayout";
 import { useUpdate, useSingle } from "@vulcanjs/react-hooks";
 import Tweek from "~/models/tweek";
 
 import { useRouter } from "next/router";
+import { PageLayout } from "~/components/layout";
 
 const TweekUpdatePage = () => {
   const router = useRouter();
@@ -26,7 +26,7 @@ const TweekUpdatePage = () => {
     model: Tweek,
   });
   return (
-    <MDXMuiLayout>
+    <PageLayout>
       <main>
         {/*<Home />*/}
         {errorTweek && "Error while fetching tweeks"}
@@ -71,7 +71,7 @@ const TweekUpdatePage = () => {
           border-color: #3f77fa;
         }
       `}</style>
-    </MDXMuiLayout>
+    </PageLayout>
   );
 };
 
