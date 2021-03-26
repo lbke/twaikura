@@ -77,19 +77,18 @@ const TwaikForm = () => {
     </>
   );
 };
-const TwaikusList = () => {
-  const {
-    data: latestTwaiksData,
-    loading: loadingTwaiks,
-    error: errorTwaiks,
-  } = useMulti<TwaikType>({
+
+// NOTE: we cannot compute the TData automatically because "twaiks" is dynamic
+// in the futur we might prefer a static name common to all models (like just "results")
+const useLatestTwaiks = () =>
+  useMulti<TwaikType, { twaiks: { results: Array<TwaikType> } }>({
     model: Twaik,
     input: {
       limit: 5,
       sort: { createdAt: "asc" },
     },
     // default fragment won't include relations at this point
-    // you have to add them manually
+    // you have to add them manually (like "tweek" here)
     fragmentName: "WithTweeks",
     fragment: gql`
       fragment WithTweeks on Twaik {
@@ -104,7 +103,14 @@ const TwaikusList = () => {
       }
     `,
   });
-  const latestTwaiks = latestTwaiksData?.twaiks?.results;
+
+const TwaikusList = () => {
+  const {
+    data: latestTwaiksData,
+    loading: loadingTwaiks,
+    error: errorTwaiks,
+  } = useLatestTwaiks();
+  const latestTwaiks = latestTwaiksData.twaiks.results;
   return (
     <>
       {errorTwaiks && "Error while fetching tweeks"}

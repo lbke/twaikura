@@ -4,6 +4,7 @@ import {
   buildDefaultQueryResolvers,
   buildDefaultMutationResolvers,
 } from "@vulcanjs/graphql";
+import { TweekType } from "./tweek";
 
 const typeName = "Twaik";
 const multiTypeName = "Twaiks";
@@ -79,6 +80,7 @@ export interface TwaikType {
   createdAt: Date;
   text: string;
   twaikId: string;
+  tweek?: TweekType;
 }
 
 export default Twaik;
