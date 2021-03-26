@@ -58,7 +58,7 @@
     "@vulcanjs/graphql": "latest",
     "@vulcanjs/mdx": "latest",
     "@vulcanjs/meteor-legacy": "latest",
-    "@vulcanjs/model": "latest",
+    "@vulcanjs/model": "^0.1.10",
     "@vulcanjs/mongo": "latest",
     "@vulcanjs/react-hooks": "latest",
     "@vulcanjs/schema": "latest",

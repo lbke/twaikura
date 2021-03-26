@@ -4681,7 +4681,15 @@
     "@vulcanjs/graphql" "^0.1.8"
     "@vulcanjs/model" "^0.1.8"
 
-"@vulcanjs/model@^0.1.8", "@vulcanjs/model@latest":
+"@vulcanjs/model@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.1.10.tgz#1676dfd25bc9fcfe90af12a3ecf5a68d8d1f4f7a"
+  integrity sha512-QXQuhrEccwxPwqeg94n6auyRVtWjX7x+FuRHAFjP1sqlPqXj5GL6hRtCZo43ESB8oggo6qtLteiKZDo/A52Izw==
+  dependencies:
+    moment-timezone "^0.5.31"
+    simpl-schema "^1.10.1"
+
+"@vulcanjs/model@^0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@vulcanjs/model/-/model-0.1.8.tgz#9c6bc9367290a7ca123101c7b43d38d1e637e04c"
   integrity sha512-vtUHuzpv5TgOD108tYpON/hVSUMOVykpVbTFIk0Jgv2WfHVYqvHfJCUmtzECmJ9tGTnxcvqGL5T32y6M6+piMA==
